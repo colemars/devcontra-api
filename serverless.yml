@@ -23,7 +23,6 @@ custom:
   stage: ${opt:stage, self:provider.stage}
   # Set the table name here so we can use it while testing locally
   tableName: ${self:custom.stage}-portfolio-contributions
-  bucketName: ${file(resources/s3-bucket.yml):AttachmentsBucket}
 
 provider:
   name: aws
