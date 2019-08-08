@@ -47,7 +47,6 @@
     "aws-api-gateway-client": "^0.2.17",
     "aws-sdk": "^2.493.0",
     "babel-runtime": "^6.26.0",
-    "capture-website": "^0.4.0",
     "filenamify-url": "^2.1.0",
     "install": "^0.13.0",
     "jsdom": "^15.1.1",
