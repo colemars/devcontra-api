@@ -5,3 +5,5 @@ jspm_packages
 # Serverless directories
 .serverless
 env.yml
+.webpack/create-profile/create-profile.js.map
+.webpack/create-profile/create-profile.js
