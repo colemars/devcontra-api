@@ -1,7 +1,8 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
-import puppeteerLambda from "puppeteer-lambda";
-import puppeteer from "puppeteer";
+import puppeteer from "puppeteer-core";
+
+const chromium = require("chrome-aws-lambda");
 
 const snapshot = async (siteName, accountUrl) => {
   console.log("SNAPSHOT RUN");
@@ -10,10 +11,15 @@ const snapshot = async (siteName, accountUrl) => {
   const urlArray = [];
   const imageArray = [];
   const iPhone = puppeteer.devices["iPhone X"];
-  const browser = await puppeteerLambda.getBrowser({
-    headless: true
+  const browser = await chromium.puppeteer.launch({
+    args: chromium.args,
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath,
+    headless: chromium.headless
   });
+
   const page = await browser.newPage();
+
   await page.emulate(iPhone);
   await page.goto(accountUrl);
   const hrefHandles = await page.$$("div.-details h2 a");
@@ -38,10 +44,5 @@ const snapshot = async (siteName, accountUrl) => {
   console.log("SNAPSHOT DONE");
   return imageArray;
 };
-
-snapshot(
-  "test",
-  "https://stackoverflow.com/users/10606984/colemars?tab=questions"
-);
 
 export default snapshot;
