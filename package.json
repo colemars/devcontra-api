@@ -52,7 +52,8 @@
     "jsdom": "^15.1.1",
     "node-fetch": "^2.6.0",
     "npm": "^6.10.3",
-    "puppeteer-core": "^1.19.0",
+    "puppeteer": "^1.19.0",
+    "puppeteer-lambda": "^1.1.1",
     "source-map-support": "^0.5.12",
     "uuid": "^3.3.2"
   }
