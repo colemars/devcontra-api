@@ -4,6 +4,8 @@ import puppeteer from "puppeteer";
 import filenamifyUrl from "filenamify-url";
 
 const getUrls = async (siteName, siteUrl) => {
+  console.log(process.env.tableName);
+  console.log(process.env.bucketName);
   const iPhone = puppeteer.devices["iPhone X"];
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
@@ -32,7 +34,5 @@ const getUrls = async (siteName, siteUrl) => {
   console.log("here");
   await browser.close();
 };
-
-getUrls();
 
 export default getUrls;
