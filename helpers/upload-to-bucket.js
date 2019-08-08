@@ -1,6 +1,6 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
-import s3 from "../libs/s3-lib";
+import * as s3 from "../libs/s3-lib";
 
 const uploadFile = async fileArray => {
   console.log("INSIDE UPLOADFILE");
