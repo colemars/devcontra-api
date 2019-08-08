@@ -1,6 +1,7 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
 import puppeteer from "puppeteer-core";
+import fileNamifyUrl from "filenamify-url";
 
 const chromium = require("chrome-aws-lambda");
 
@@ -9,7 +10,7 @@ const snapshot = async (siteName, accountUrl) => {
   console.log(accountUrl);
   // only stackOverFlow so far
   const urlArray = [];
-  const imageArray = [];
+  const fileArray = [];
   const iPhone = puppeteer.devices["iPhone X"];
   const browser = await chromium.puppeteer.launch({
     args: chromium.args,
@@ -33,16 +34,16 @@ const snapshot = async (siteName, accountUrl) => {
   for (const url of urlArray) {
     console.log(url);
     await page.goto(url);
-    const image = await page.screenshot({
+    const buffer = await page.screenshot({
       type: "jpeg",
       quality: 50,
       fullPage: true
     });
-    imageArray.push(image);
+    fileArray.push({ bufferBinary: buffer, fileName: fileNamifyUrl(url) });
   }
   await browser.close();
   console.log("SNAPSHOT DONE");
-  return imageArray;
+  return fileArray;
 };
 
 export default snapshot;

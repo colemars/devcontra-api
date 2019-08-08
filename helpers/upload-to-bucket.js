@@ -1,11 +1,21 @@
+/* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
-import s3 from "../libs/s3-lib";
 import { success, failure } from "../libs/response-lib";
+import s3 from "../libs/s3-lib";
 
-const uploadFile = async images => {
+const uploadFile = async fileArray => {
   console.log("INSIDE UPLOADFILE");
-  for (const image of images) {
-    console.log(image);
+  const keys = [];
+  for (const file of fileArray) {
+    const params = {
+      Bucket: process.env.BUCKET_NAME,
+      Key: file.fileName,
+      Body: file.bufferBinary
+    };
+
+    const storedKey = await s3.upload(params);
+    keys.push(storedKey);
+    }
   }
 
   // const params = {
