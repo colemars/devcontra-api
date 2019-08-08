@@ -1,20 +1,23 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
-import puppeteer from "puppeteer";
-import filenamifyUrl from "filenamify-url";
-import s3Upload from "./upload-to-bucket";
+import puppeteer from "puppeteer-core";
 
 const snapshot = async (siteName, accountUrl) => {
   console.log("SNAPSHOT RUN");
+  console.log(accountUrl);
   // only stackOverFlow so far
   const urlArray = [];
   const imageArray = [];
   const iPhone = puppeteer.devices["iPhone X"];
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    executablePath: "../headless_shell.tar.gz"
+  });
   const page = await browser.newPage();
   await page.emulate(iPhone);
   await page.goto(accountUrl);
   const hrefHandles = await page.$$("div.-details h2 a");
+
+  console.log("handles", hrefHandles);
 
   for (const hrefHandle of hrefHandles) {
     urlArray.push(await page.evaluate(a => a.href, hrefHandle));
@@ -34,5 +37,10 @@ const snapshot = async (siteName, accountUrl) => {
   console.log("SNAPSHOT DONE");
   return imageArray;
 };
+
+snapshot(
+  "test",
+  "https://stackoverflow.com/users/10606984/colemars?tab=questions"
+);
 
 export default snapshot;
