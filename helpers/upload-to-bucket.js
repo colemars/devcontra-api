@@ -1,6 +1,5 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
-import { success, failure } from "../libs/response-lib";
 import s3 from "../libs/s3-lib";
 
 const uploadFile = async fileArray => {
@@ -15,25 +14,11 @@ const uploadFile = async fileArray => {
 
     const storedKey = await s3.upload(params);
     keys.push(storedKey);
-    }
   }
 
-  // const params = {
-  //   Bucket: process.env.BUCKET_NAME,
-  //   Key: fileName,
-  //   Body: data
-  // };
+  console.log("UPlOAD DONE", keys);
 
-  // try {
-  //   const result = await s3.upload(params);
-  //   console.log(result);
-  //   return success(result);
-  // } catch (e) {
-  //   console.log(e);
-  //   return failure({ status: false });
-  // }
-  console.log("UPlOAD DONE");
-  return "testKey";
+  return keys;
 };
 
 export default uploadFile;
