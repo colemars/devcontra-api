@@ -59,8 +59,6 @@ functions:
   # - authorizer: authenticate using the AWS IAM role
   create-profile:
     handler: create-profile.default
-    environment:
-      CHROME_BUCKET: devcontra-headless-chromium
     events:
       - http:
           path: profile
