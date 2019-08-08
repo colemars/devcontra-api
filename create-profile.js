@@ -1,11 +1,19 @@
 import * as dynamoDbLib from "./libs/dynamodb-lib";
+import s3Upload from "./helpers/upload-to-bucket";
+import snapshot from "./helpers/snapshot";
 import { success, failure } from "./libs/response-lib";
 
 export default async function main(event) {
-  const data = JSON.parse(event.body);
-  console.log(process.env.tableName);
-  console.log(process.env.bucketName);
-  // const images = await snapshot(data.siteName, data.siteUserName);
+  console.log("run");
+  // const data = JSON.parse(event.body);
+  const siteName = "stackOverflow";
+  const accountUrl = "https://stackoverflow.com/users/10606984/colemars";
+  const images = await snapshot(siteName, accountUrl);
+  console.log("out of snapshot");
+  console.log("images", images);
+  const imageKeys = await s3Upload(images);
+  console.log("out of Upload");
+  console.log("imageKeys", imageKeys);
   // const imageKeys = await uploadToBucket(images);
 
   // const params = {
