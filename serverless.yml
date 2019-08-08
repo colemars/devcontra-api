@@ -7,9 +7,7 @@ plugins:
   - serverless-plugin-include-dependencies
 
 package:
-  excludeDevDependencies: false
-  exclude:
-    - node_modules/** # no need to add this yourself, this plugin does it for you
+  excludeDevDependencies: true
   individually: true
 
 # serverless-webpack configuration
