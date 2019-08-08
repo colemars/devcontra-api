@@ -1,17 +1,11 @@
-import fs from "fs";
+/* eslint-disable import/prefer-default-export */
 import { S3 } from "aws-sdk";
 
-const s3 = new S3({
-  accessKeyId: process.env.AWS_ACCESS_KEY,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-});
+export function call(action, params) {
+  const s3 = new S3({
+    accessKeyId: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+  });
 
-const params = {
-  Bucket: "bucket",
-  Key: "key",
-  Body: stream
-};
-
-s3.upload(params, function(err, data) {
-  console.log(err, data);
-});
+  return s3[action](params).promise();
+}
