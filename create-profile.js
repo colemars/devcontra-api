@@ -7,7 +7,7 @@ export default async function main(event) {
   console.log("run");
   // const data = JSON.parse(event.body);
   const siteName = "stackOverflow";
-  const accountUrl = "https://stackoverflow.com/users/10606984/colemars";
+  const accountUrl = "https://stackoverflow.com/users/10606984/colemars?tab=questions";
   const images = await snapshot(siteName, accountUrl);
   console.log("out of snapshot");
   console.log("images", images);
