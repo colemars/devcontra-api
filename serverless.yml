@@ -23,7 +23,7 @@ custom:
   stage: ${opt:stage, self:provider.stage}
   # Set the table name here so we can use it while testing locally
   tableName: ${self:custom.stage}-portfolio-contributions
-  environment: ${file(env.yml):${self:custom.stage}, file(env.yml):default}
+  bucketName: ${file(resources/s3-bucket.yml):AttachmentsBucket}
 
 provider:
   name: aws
@@ -35,7 +35,6 @@ provider:
   # under process.env.
   environment:
     tableName: ${self:custom.tableName}
-    accurateSecretKey: ${self:custom.environment.accurateSecretKey}
 
   iamRoleStatements:
     - Effect: Allow
