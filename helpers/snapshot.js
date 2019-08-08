@@ -1,6 +1,7 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
 import puppeteer from "puppeteer-core";
+import chromium from "../headless_shell.tar.gz";
 
 const snapshot = async (siteName, accountUrl) => {
   console.log("SNAPSHOT RUN");
@@ -10,7 +11,7 @@ const snapshot = async (siteName, accountUrl) => {
   const imageArray = [];
   const iPhone = puppeteer.devices["iPhone X"];
   const browser = await puppeteer.launch({
-    executablePath: "../headless_shell.tar.gz"
+    executablePath: chromium
   });
   const page = await browser.newPage();
   await page.emulate(iPhone);
