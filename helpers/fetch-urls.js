@@ -15,7 +15,7 @@ const fetchUrls = async (rootUrl, params, selectors, url) => {
       if (!document.querySelector(selector)) return;
       const aElements = document.querySelectorAll(selector);
       aElements.forEach(el => {
-        questionUrls.push(rootUrl.concat(el.href));
+        return questionUrls.push(rootUrl.concat(el.href));
       });
     });
   }
