@@ -20,7 +20,7 @@ const uploadFile = async () => {
   const listedFiles = await readdir(directoryPath);
 
   const deleteLocalFile = async file => {
-    unlink(path.join(`${directoryPath}`, `${file.name}`), err => {
+    await unlink(path.join(`${directoryPath}`, `${file.name}`), err => {
       if (err) {
         console.log(`failed to delete local image:${err}`);
       } else {
