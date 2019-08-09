@@ -2,8 +2,8 @@
 /* eslint-disable no-restricted-syntax */
 import puppeteer from "puppeteer-core";
 import fileNamifyUrl from "filenamify-url";
+import chromium from "chrome-aws-lambda";
 
-const chromium = require("chrome-aws-lambda");
 
 const snapshot = async (siteName, accountUrl) => {
   console.log("SNAPSHOT RUN");
