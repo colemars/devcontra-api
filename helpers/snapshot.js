@@ -35,7 +35,7 @@ const snapshotStackOverflow = async baseUrl => {
     console.log(url);
     await page.goto(url);
     await page.screenshot({
-      path: `/tmp/${fileNamifyUrl(url)}.png`,
+      path: `/tmp/img/${fileNamifyUrl(url)}.png`,
       fullPage: true
     });
   }

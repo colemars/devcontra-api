@@ -16,7 +16,7 @@ const uploadFile = async () => {
     accessKeyId: process.env.AWS_ACCESS_KEY,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
   });
-  const directoryPath = "/tmp/";
+  const directoryPath = "/tmp/img/";
   const listedFiles = await readdir(directoryPath);
 
   const deleteLocalFile = async file => {
