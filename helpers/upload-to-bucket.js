@@ -30,6 +30,7 @@ const uploadFile = async () => {
   };
 
   for (const file of listedFiles) {
+    console.log(file);
     try {
       files.push({
         data: await readFile(path.join(directoryPath, `/${file}`)),
@@ -40,7 +41,11 @@ const uploadFile = async () => {
     }
   }
 
+  console.log(listedFiles);
+  console.log(files);
+
   for (const file of files) {
+    console.log(file);
     const params = {
       Bucket:
         process.env.BUCKET_NAME ||
