@@ -1,8 +1,8 @@
 import * as dynamoDbLib from "./libs/dynamodb-lib";
 import * as handleTmpDir from "./helpers/handle-tmp-image-dir";
 import uploadToBucket from "./helpers/upload-to-bucket";
-// import snapshot from "./helpers/snapshot";
-import altSnapshot from "./helpers/alt-snapshot";
+import snapshot from "./helpers/snapshot";
+// import altSnapshot from "./helpers/alt-snapshot";
 import fetchUrls from "./helpers/fetch-urls";
 import handleSiteConfig from "./helpers/handle-site-config";
 import { success, failure } from "./libs/response-lib";
@@ -20,7 +20,7 @@ export default async function main(event) {
   const urls = await fetchUrls(root, urlParams, selectors, url);
 
   handleTmpDir.create();
-  await altSnapshot(urls);
+  await snapshot(urls);
   const keys = await uploadToBucket();
   handleTmpDir.remove();
 
