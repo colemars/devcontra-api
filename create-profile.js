@@ -26,21 +26,21 @@ export default async function main(event) {
   console.log("done with upload");
   await handleTmpDir.remove();
 
-  const params = {
-    TableName: process.env.tableName,
-    Item: {
-      userId,
-      siteName,
-      imageKeys: keys,
-      createdAt: Date.now()
-    }
-  };
+  // const params = {
+  //   TableName: process.env.tableName,
+  //   Item: {
+  //     userId,
+  //     siteName,
+  //     imageKeys: keys,
+  //     createdAt: Date.now()
+  //   }
+  // };
 
-  try {
-    const result = await dynamoDbLib.call("put", params);
-    return success(result);
-  } catch (e) {
-    console.log(e);
-    return failure({ status: false });
-  }
+  // try {
+  //   const result = await dynamoDbLib.call("put", params);
+  //   return success(result);
+  // } catch (e) {
+  //   console.log(e);
+  //   return failure({ status: false });
+  // }
 }
