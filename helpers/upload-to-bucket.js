@@ -1,28 +1,65 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
 import { S3 } from "aws-sdk";
-// import * as s3 from "../libs/s3-lib";
+import path from "path";
+import fs from "fs";
+import util from "util";
 
-const uploadFile = async fileArray => {
-  console.log("INSIDE UPLOADFILE");
+const readdir = util.promisify(fs.readdir);
+const readFile = util.promisify(fs.readFile);
+const unlink = util.promisify(fs.unlink);
+
+const uploadFile = async () => {
+  const keys = [];
+  const files = [];
   const s3 = new S3({
     accessKeyId: process.env.AWS_ACCESS_KEY,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
   });
-  const keys = [];
-  for (const file of fileArray) {
-    const params = {
-      Bucket: process.env.BUCKET_NAME,
-      Key: file.fileName,
-      Body: file.bufferBinary
-    };
+  const directoryPath = "tmp/";
+  const listedFiles = await readdir(directoryPath);
 
-    const storedKey = await s3.upload(params);
-    keys.push(storedKey);
+  const deleteLocalFile = async file => {
+    const newPath = path.join(`${directoryPath}`, `${file.name}`);
+    console.log(newPath);
+    unlink(path.join(`${directoryPath}`, `${file.name}`), err => {
+      if (err) {
+        console.log(`failed to delete local image:${err}`);
+      } else {
+        console.log("successfully deleted local image");
+      }
+    });
+  };
+
+  for (const file of listedFiles) {
+    try {
+      files.push({
+        data: await readFile(path.join(directoryPath, `/${file}`)),
+        name: file
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
-  console.log("UPlOAD DONE", keys);
+  for (const file of files) {
+    const params = {
+      Bucket:
+        process.env.BUCKET_NAME ||
+        "devcontra-api-dev-attachmentsbucket-sse4szutsuon",
+      Key: file.name,
+      Body: file.data
+    };
+    try {
+      const stored = await s3.upload(params).promise();
+      keys.push(stored.key);
+      deleteLocalFile(file);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
+  console.log(keys);
   return keys;
 };
 
