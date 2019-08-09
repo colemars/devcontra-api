@@ -58,7 +58,13 @@ const uploadFile = async () => {
     };
     const stored = await s3.upload(params).promise();
     keys.push(stored.key);
-    deleteLocalFile(file);
+    await unlink(path.join(`${directoryPath}`, `${file.name}`), err => {
+      if (err) {
+        console.log(`failed to delete local image:${err}`);
+      } else {
+        console.log("successfully deleted local image");
+      }
+    });
   }
 
   console.log(keys);
