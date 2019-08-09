@@ -9,8 +9,8 @@ export default async function main(event) {
   const siteName = "stackOverflow";
   const accountUrl =
     "https://stackoverflow.com/users/10606984/colemars?tab=questions";
-  const site = data.siteName.toLowerCase();
-  const url = data.url.toLowercase();
+  const site = data.siteName.toString().toLowerCase();
+  const url = data.url.toString().toLowercase();
 
   await snapshot(site, url);
   const keys = await s3Upload();
