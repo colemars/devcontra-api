@@ -58,7 +58,7 @@ functions:
   create-profile:
     handler: create-profile.default
     memory: 1600
-    timeout: 60
+    timeout: 300
     events:
       - http:
           path: profile
