@@ -8,6 +8,7 @@ const snapshot = async urls => {
   urls.forEach(url => {
     items.push([url, `${fileNamifyUrl(url)}`]);
   });
+  console.log("items", items);
   await Promise.all(
     items.map(([url, filename]) => {
       return captureWebsite.file(url, `${filename}.png`, {
