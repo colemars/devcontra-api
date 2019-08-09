@@ -6,30 +6,30 @@ import { success, failure } from "./libs/response-lib";
 export default async function main(event) {
   const data = JSON.parse(event.body);
   console.log(data);
-  // const siteName = "stackOverflow";
-  // const accountUrl =
-  //   "https://stackoverflow.com/users/10606984/colemars?tab=questions";
-  // const site = data.siteName.toLowerCase();
-  // const url = data.url.toLowercase();
+  const siteName = "stackOverflow";
+  const accountUrl =
+    "https://stackoverflow.com/users/10606984/colemars?tab=questions";
+  const site = data.siteName.toLowerCase();
+  const url = data.url.toLowercase();
 
-  // await snapshot(site, url);
-  // const keys = await s3Upload();
+  await snapshot(site, url);
+  const keys = await s3Upload();
 
-  // const params = {
-  //   TableName: process.env.tableName,
-  //   Item: {
-  //     userId: data.userId,
-  //     siteName: data.siteName,
-  //     imageKeys: keys,
-  //     createdAt: Date.now()
-  //   }
-  // };
+  const params = {
+    TableName: process.env.tableName,
+    Item: {
+      userId: data.userId,
+      siteName: data.siteName,
+      imageKeys: keys,
+      createdAt: Date.now()
+    }
+  };
 
-  // try {
-  //   const result = await dynamoDbLib.call("put", params);
-  //   return success(result);
-  // } catch (e) {
-  //   console.log(e);
-  //   return failure({ status: false });
-  // }
+  try {
+    const result = await dynamoDbLib.call("put", params);
+    return success(result);
+  } catch (e) {
+    console.log(e);
+    return failure({ status: false });
+  }
 }
