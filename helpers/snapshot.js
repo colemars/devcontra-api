@@ -3,11 +3,19 @@
 import puppeteer from "puppeteer-core";
 import fileNamifyUrl from "filenamify-url";
 import chromium from "chrome-aws-lambda";
-import fs from "fs";
-import util from "util";
 
-const snapshotStackOverflow = async baseUrl => {
-  const urlArray = [];
+const screenshot = async (page, urls) => {
+  for (const url of urls) {
+    await page.goto(url);
+    await page.screenshot({
+      path: `/tmp/img/${fileNamifyUrl(url)}.png`,
+      fullPage: true
+    });
+  }
+  return true;
+};
+
+const snapshot = async urls => {
   const iPad = puppeteer.devices["iPad Pro"];
   const browser = await chromium.puppeteer.launch({
     args: chromium.args,
@@ -17,43 +25,8 @@ const snapshotStackOverflow = async baseUrl => {
   });
   const page = await browser.newPage();
   await page.emulate(iPad);
-  await page.goto(baseUrl);
-  let hrefHandles = await page.$$(".question-hyperlink");
-  if (hrefHandles.length === 0)
-    hrefHandles = await page.$$(".answer-hyperlink");
-  if (hrefHandles.length === 0) {
-    console.log("false");
-    browser.close();
-    return false;
-  }
-
-  console.log("handles", hrefHandles);
-
-  for (const hrefHandle of hrefHandles) {
-    urlArray.push(await page.evaluate(a => a.href, hrefHandle));
-  }
-
-  for (const url of urlArray) {
-    console.log(url);
-    await page.goto(url);
-    await page.screenshot({
-      path: `/tmp/img/${fileNamifyUrl(url)}.png`,
-      fullPage: true
-    });
-  }
+  await screenshot(page, urls);
   await browser.close();
-  return true;
-};
-
-const snapshot = async (siteName, url) => {
-  if (!url.includes("stackoverflow")) {
-    console.log("this site may not be a valid site");
-    return false;
-  }
-
-  await snapshotStackOverflow(url.concat("?tab=questions"));
-  await snapshotStackOverflow(url.concat("?tab=answers"));
-
   return true;
 };
 
