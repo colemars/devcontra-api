@@ -14,12 +14,10 @@ export default async function main(event) {
   const url = data.url.toLowerCase();
 
   const urlProps = await handleSiteConfig(url, siteName);
-  console.log(urlProps);
   if (urlProps.error) return failure(urlProps.error);
 
   const { root, urlParams, selectors } = urlProps;
   const urls = await fetchUrls(root, urlParams, selectors, url);
-  console.log(urls);
 
   handleTmpDir.create();
   await altSnapshot(urls);
