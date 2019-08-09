@@ -4,7 +4,7 @@ const handleSiteConfig = async (url, siteName) => {
     return {
       urlProps: {
         root: "https://stackoverflow.com",
-        params: ["?tab=answers", "?tab=questions"],
+        urlParams: ["?tab=answers", "?tab=questions"],
         selectors: [".question-hyperlink", ".answer-hyperlink"]
       }
     };
