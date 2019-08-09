@@ -34,10 +34,13 @@ const uploadFile = async () => {
   for (const file of listedFiles) {
     console.log("dir file", file);
     try {
+      const fileToPush = await readFile(path.join(directoryPath, `/${file}`));
+      console.log("file to push", fileToPush);
       files.push({
-        data: await readFile(path.join(directoryPath, `/${file}`)),
+        data: fileToPush,
         name: file
       });
+      console.log("files array update", files);
     } catch (err) {
       console.log(err);
     }
