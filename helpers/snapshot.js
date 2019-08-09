@@ -3,8 +3,13 @@
 import puppeteer from "puppeteer-core";
 import fileNamifyUrl from "filenamify-url";
 import chromium from "chrome-aws-lambda";
+import fs from "fs";
+import util from "util";
+
+const mkdir = util.promisify(fs.mkdir);
 
 const snapshotStackOverflow = async baseUrl => {
+  await mkdir("/tmp/img");
   const urlArray = [];
   const iPad = puppeteer.devices["iPad Pro"];
   const browser = await chromium.puppeteer.launch({
