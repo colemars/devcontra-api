@@ -57,7 +57,7 @@ functions:
   # - authorizer: authenticate using the AWS IAM role
   create-profile:
     handler: create-profile.default
-    memory: 1600
+    memorySize: 1600
     timeout: 300
     events:
       - http:
