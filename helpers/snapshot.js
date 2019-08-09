@@ -5,7 +5,9 @@ import fileNamifyUrl from "filenamify-url";
 import chromium from "chrome-aws-lambda";
 
 const screenshot = async (page, urls) => {
+  console.log("screenshot", urls);
   for (const url of urls) {
+    console.log(url);
     await page.goto(url);
     await page.screenshot({
       path: `/tmp/img/${fileNamifyUrl(url)}.png`,
@@ -17,6 +19,7 @@ const screenshot = async (page, urls) => {
 
 const snapshot = async urls => {
   const iPad = puppeteer.devices["iPad Pro"];
+  console.log("launch browser");
   const browser = await chromium.puppeteer.launch({
     args: chromium.args,
     defaultViewport: chromium.defaultViewport,
@@ -26,6 +29,7 @@ const snapshot = async urls => {
   const page = await browser.newPage();
   await page.emulate(iPad);
   await screenshot(page, urls);
+  console.log("close browser");
   await browser.close();
   return true;
 };
