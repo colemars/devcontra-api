@@ -17,10 +17,13 @@ export default async function main(event) {
 
   const { root, urlParams, selectors } = urlProps;
   const urls = await fetchUrls(root, urlParams, selectors, url);
+  console.log("done with fetch");
 
   handleTmpDir.create();
   await snapshot(urls);
+  console.log("done with snapshot");
   const keys = await uploadToBucket();
+  console.log("done with upload");
   handleTmpDir.remove();
 
   const params = {

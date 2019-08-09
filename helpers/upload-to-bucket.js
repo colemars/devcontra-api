@@ -18,8 +18,10 @@ const uploadFile = async () => {
   });
   const directoryPath = "/tmp/img/";
   const listedFiles = await readdir(directoryPath);
+  console.log("dir", listedFiles);
 
   const deleteLocalFile = async file => {
+    console.log("delete", file);
     await unlink(path.join(`${directoryPath}`, `${file.name}`), err => {
       if (err) {
         console.log(`failed to delete local image:${err}`);
@@ -30,7 +32,7 @@ const uploadFile = async () => {
   };
 
   for (const file of listedFiles) {
-    console.log(file);
+    console.log("dir file", file);
     try {
       files.push({
         data: await readFile(path.join(directoryPath, `/${file}`)),
@@ -41,11 +43,8 @@ const uploadFile = async () => {
     }
   }
 
-  console.log(listedFiles);
-  console.log(files);
-
   for (const file of files) {
-    console.log(file);
+    console.log("files to upload", file);
     const params = {
       Bucket:
         process.env.BUCKET_NAME ||

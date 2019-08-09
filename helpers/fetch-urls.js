@@ -15,12 +15,11 @@ const fetchUrls = async (rootUrl, params, selectors, url) => {
       if (!document.querySelector(selector)) return;
       const aElements = document.querySelectorAll(selector);
       aElements.forEach(el => {
-        console.log(el.href);
+        console.log("fetch", el.href);
         return questionUrls.push(rootUrl.concat(el.href));
       });
     });
   }
-  console.log("urls fetched")
   return questionUrls;
 };
 

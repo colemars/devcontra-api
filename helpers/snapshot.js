@@ -5,9 +5,8 @@ import fileNamifyUrl from "filenamify-url";
 import chromium from "chrome-aws-lambda";
 
 const screenshot = async (page, urls) => {
-  console.log("screenshot", urls);
   for (const url of urls) {
-    console.log(url);
+    console.log("url", url);
     await page.goto(url);
     await page.screenshot({
       path: `/tmp/img/${fileNamifyUrl(url)}.png`,
