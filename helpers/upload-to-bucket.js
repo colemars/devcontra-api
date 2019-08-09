@@ -47,7 +47,11 @@ const uploadFile = async () => {
   }
 
   for (const file of files) {
-    console.log("files to upload", file);
+    console.log("test loop", file);
+  }
+
+  for (const file of files) {
+    console.log("files to upload", files, file);
     const params = {
       Bucket:
         process.env.BUCKET_NAME ||
@@ -55,13 +59,9 @@ const uploadFile = async () => {
       Key: file.name,
       Body: file.data
     };
-    try {
-      const stored = await s3.upload(params).promise();
-      keys.push(stored.key);
-      await deleteLocalFile(file);
-    } catch (err) {
-      console.log(err);
-    }
+    const stored = await s3.upload(params).promise();
+    keys.push(stored.key);
+    await deleteLocalFile(file);
   }
 
   console.log(keys);
