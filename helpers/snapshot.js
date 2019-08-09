@@ -49,13 +49,15 @@ const snapshotStackOverflow = async baseUrl => {
 };
 
 const snapshot = async (siteName, url) => {
-  if (url.includes("stackoverflow")) {
-    await snapshotStackOverflow(url.concat("?tab=questions"));
-    await snapshotStackOverflow(url.concat("?tab=answers"));
-    return true;
+  if (!url.includes("stackoverflow")) {
+    console.log("this site may not be a valid site");
+    return false;
   }
-  console.log("this site may not be a valid site");
-  return false;
+
+  await snapshotStackOverflow(url.concat("?tab=questions"));
+  await snapshotStackOverflow(url.concat("?tab=answers"));
+
+  return true;
 };
 
 export default snapshot;
