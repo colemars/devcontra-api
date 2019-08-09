@@ -58,7 +58,7 @@ const uploadFile = async () => {
     };
     const stored = await s3.upload(params).promise();
     keys.push(stored.key);
-    await unlink(path.join(`${directoryPath}`, `${file.name}`));
+    deleteLocalFile(file);
   }
 
   console.log(keys);
