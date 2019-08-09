@@ -11,7 +11,7 @@ const snapshot = async urls => {
   console.log("items", items);
   await Promise.all(
     items.map(([url, filename]) => {
-      return captureWebsite.file(url, `${filename}.png`, {
+      return captureWebsite.file(url, `/tmp/img/${filename}.png`, {
         emulateDevice: "iPad Pro",
         fullPage: true
       });
