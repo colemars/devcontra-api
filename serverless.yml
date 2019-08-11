@@ -3,9 +3,7 @@ service: devcontra-api
 # Use the serverless-webpack plugin to transpile ES6
 plugins:
   - serverless-offline
-  - serverless-plugin-include-dependencies
   - serverless-bundle
-  - serverless-plugin-common-excludes
 
 package:
   excludeDevDependencies: false
