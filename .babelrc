@@ -1,7 +1,0 @@
-{
-  "presets": [
-    ["@babel/preset-env", {"targets": {"node": "current"}, "debug": true}]
-  ],
-  "plugins": ["@babel/plugin-transform-runtime", "source-map-support"],
-}
-
