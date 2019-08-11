@@ -1,0 +1,10 @@
+{
+  "pathParameters": {
+    "site": "stackoverflow"
+  },
+  "requestContext": {
+    "identity": {
+      "cognitoIdentityId": "colemars"
+    }
+  }
+}

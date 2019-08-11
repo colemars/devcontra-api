@@ -2,25 +2,17 @@ service: devcontra-api
 
 # Use the serverless-webpack plugin to transpile ES6
 plugins:
-  - serverless-webpack
   - serverless-offline
-  - serverless-plugin-include-dependencies
+  - serverless-bundle
 
 package:
-  excludeDevDependencies: true
+  excludeDevDependencies: false
   individually: true
 
-# serverless-webpack configuration
-# Enable auto-packing of external modules
 custom:
-  webpack:
-    webpackConfig: ./webpack.config.js
-    includeModules: true
-  # Our stage is based on what is passed in when running serverless
-  # commands. Or fallsback to what we have set in the provider section.
   stage: ${opt:stage, self:provider.stage}
   # Set the table name here so we can use it while testing locally
-  tableName: ${self:custom.stage}-portfolio-contributions
+  tableName: ${self:custom.stage}-devcontra-profiles
 
 provider:
   name: aws
@@ -63,6 +55,14 @@ functions:
       - http:
           path: profile
           method: post
+          cors: true
+          authorizer: aws_iam
+  get-profile:
+    handler: get-profile.default
+    events:
+      - http:
+          path: profile/{site}
+          method: get
           cors: true
           authorizer: aws_iam
 # Create our resources with separate CloudFormation templates
