@@ -8,7 +8,7 @@ import { success, failure } from "./libs/response-lib";
 
 export default async function main(event) {
   const data = JSON.parse(event.body);
-  const { userId } = data;
+  const { userId } = event.requestContext.identity.cognitoIdentityId;
   const siteName = data.siteName.toLowerCase();
   const url = data.url.toLowerCase();
 
