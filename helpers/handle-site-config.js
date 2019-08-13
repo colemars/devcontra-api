@@ -7,7 +7,7 @@ const handleSiteConfig = async (url, siteName) => {
       selectors: [".question-hyperlink", ".answer-hyperlink"]
     };
 
-  return { error: "not a valid site" };
+  return { error: "not a valid url" };
 };
 
 export default handleSiteConfig;
