@@ -1,6 +1,6 @@
 const handleSiteConfig = async (url, siteName) => {
   if (!url.includes("https")) return { error: "not a valid url" };
-  if (siteName === "stackoverflow")
+  if (siteName === "stack")
     return {
       root: "https://stackoverflow.com",
       urlParams: ["?tab=answers", "?tab=questions"],
