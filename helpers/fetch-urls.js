@@ -10,6 +10,7 @@ const fetchUrls = async (rootUrl, params, selectors, url) => {
     const response = await fetch(fetchUrl);
     const data = await response.text();
 
+    console.log(data);
     if (!data.includes("top-posts")) return { error: "not a valid url" };
 
     const dom = await new JSDOM(data);
