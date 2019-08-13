@@ -9,8 +9,12 @@ const fetchUrls = async (rootUrl, params, selectors, url) => {
     const fetchUrl = url.concat(param);
     const response = await fetch(fetchUrl);
     const data = await response.text();
+
+    if (!data.includes("top-posts")) return { error: "not a valid url" };
+
     const dom = await new JSDOM(data);
     const { document } = await dom.window;
+
     selectors.forEach(selector => {
       if (!document.querySelector(selector)) return;
       const aElements = document.querySelectorAll(selector);
