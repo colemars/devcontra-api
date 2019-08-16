@@ -132,7 +132,6 @@ const handleStackOverflow = async targetUserId => {
   const displayName = userData.items[0].display_name;
 
   if (!userObject || !displayName) return { error: "Invalid user id" };
-
   if (posts.length === 0) return { error: "This user has no posts to fetch" };
 
   try {
@@ -142,7 +141,7 @@ const handleStackOverflow = async targetUserId => {
   const parsedPages = await Promise.all(
       contentResults.map(result => parsePage(result, displayName))
   );
-  return parsedPages;
+    return { response: parsedPages };
   } catch (err) {
     return { error: err };
   }
