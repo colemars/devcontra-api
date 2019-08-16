@@ -5,6 +5,34 @@ import { success, failure } from "./libs/response-lib";
 
 const getContent = async postId => {
   const getContentResponse = await fetch(
+const dynamoDbUpload = async (pageResultsObject, userId, siteName) => {
+  const { question, responses } = pageResultsObject;
+  const { url, title, body, author, comments } = question;
+  const params = {
+    TableName: process.env.tableName,
+    Item: {
+      userId,
+      siteName,
+      url,
+      title,
+      body,
+      author,
+      comments,
+      responses,
+      createdAt: Date.now()
+    }
+  };
+
+  try {
+    const result = await dynamoDbLib.call("put", params);
+    console.log(result);
+    return success(result);
+  } catch (e) {
+    console.log(e);
+    return failure({ status: false });
+  }
+};
+
     `https://stackoverflow.com/questions/${postId}/`
   );
   const getContentData = await getContentResponse.text();
