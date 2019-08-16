@@ -119,7 +119,9 @@ const parsePage = async (page, selectors, targetUsername) => {
 };
 
 const handleStackOverflow = async targetUserId => {
+  // promise.all convert
   console.log("in stack");
+  console.log(targetUserId);
   const getPosts = `https://api.stackexchange.com/2.2/users/${targetUserId}/posts?order=desc&sort=activity&site=stackoverflow`;
   const getUsername = `https://api.stackexchange.com/2.2/users/${targetUserId}?order=desc&sort=reputation&site=stackoverflow`;
 
