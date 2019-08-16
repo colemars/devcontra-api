@@ -161,11 +161,16 @@ export default async function main(event) {
   const { userId } = event.requestContext.identity.cognitoIdentityId;
   const { variant, targetUserId } = data;
 
-  const parsedPageResults = await handleSiteName(siteName, targetUserId);
+  const { response, error } = await handleVariant(variant, targetUserId);
 
+  if (error) return failure(error);
+
+  try {
   const upload = await Promise.all(
-    parsedPageResults.map(result => dynamoDbUpload(result, userId, siteName))
+      response.map(result => dynamoDbUpload(result, userId, variant))
   );
-
-  return success();
+    return upload;
+  } catch (err) {
+    return failure(err);
+  }
 }
