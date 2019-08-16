@@ -159,5 +159,3 @@ export default async function main(event) {
 
   return success();
 }
-
-main();
