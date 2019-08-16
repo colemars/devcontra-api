@@ -46,9 +46,11 @@ const parsePost = (post, selectors) => {
   const commentsSelector = ".comment-body";
 
   const questionBool = post.parentElement.id === boolSelector;
-  const body = post.querySelector(bodySelector).innerText;
+  const body = post.querySelector(bodySelector);
   const author = post.querySelector(postAuthorSelector);
   const commentEls = post.querySelectorAll(commentsSelector);
+  // sanity check
+  if (!commentEls || !author || !body) return false;
   const comments = [];
 
   commentEls.forEach(el => {
@@ -56,18 +58,18 @@ const parsePost = (post, selectors) => {
     const commentAuthor = el.querySelector(".comment-user");
 
     // sanity check
-    if (!commentBody && !commentAuthor) return;
+    if (!commentBody || !commentAuthor) return;
 
     comments.push({
-      body: commentBody.innerText,
-      author: commentAuthor.innerText
+      body: commentBody.textContent.trim(),
+      author: commentAuthor.textContent.trim()
     });
   });
 
   const parsedPost = {
     questionBool,
-    body,
-    author,
+    body: body.textContent.trim(),
+    author: author.textContent.trim(),
     comments
   };
 
@@ -78,13 +80,15 @@ const parsePage = async (page, selectors) => {
   const dom = await new JSDOM(page);
   const { document } = await dom.window;
   const titleSelector = ".question-hyperlink";
+  const urlSelector = ".question-hyperlink";
   const postSelector = ".post-layout";
 
   const questionTitle = document.querySelector(titleSelector);
+  const url = document.querySelector(urlSelector);
   const posts = document.querySelectorAll(postSelector);
 
   // sanity check
-  if (!questionTitle || !posts) return false;
+  if (!questionTitle || !posts || !url) return false;
 
   let question;
   const responses = [];
@@ -94,7 +98,13 @@ const parsePage = async (page, selectors) => {
     const { questionBool, body, author, comments } = result;
 
     if (questionBool) {
-      question = { title: questionTitle.innerText, body, author, comments };
+      question = {
+        url: url.href,
+        title: questionTitle.textContent.trim(),
+        body,
+        author,
+        comments
+      };
       return;
     }
     responses.push({ body, author, comments });
