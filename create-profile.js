@@ -87,25 +87,14 @@ const handleStackOverflow = async siteUserId => {
   const data = await response.json();
   const posts = data.items;
 
-  const postContent = [];
-  posts.forEach(post => {
-    postContent.push(getContent(post.post_id));
-  });
+  const contentResults = await Promise.all(
+    posts.map(post => getPage(post.post_id))
+  );
+  const parsedPages = await Promise.all(
+    contentResults.map(result => parsePage(result))
+  );
 
-  const pages = [];
-
-  Promise.all(postContent).then(contentResults => {
-    console.log("post promise resolved");
-    contentResults.forEach(result => {
-      pages.push(parsePage(result));
-    });
-    Promise.all(pages).then(pagesResults => {
-      console.log("pages promise resolved");
-      pagesResults.forEach(result => {
-        console.log(result);
-      });
-    });
-  });
+  return parsedPages;
 };
 
 const handleSpectrum = siteUserId => {};
