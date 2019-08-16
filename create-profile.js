@@ -146,22 +146,13 @@ const handleSiteName = async (siteName, targetUserId) => {
 };
 
 export default async function main(event) {
-  // const data = JSON.parse(event.body);
-  // const { userId } = event.requestContext.identity.cognitoIdentityId;
-  // const siteName = data.siteName.toLowerCase();
-  // const siteUserId = data.siteId.toLowerCase();
-  const siteName = "stackoverflow";
-  const siteUserId = "10606984";
+  const data = JSON.parse(event.body);
+  const { userId } = event.requestContext.identity.cognitoIdentityId;
+  const siteName = data.siteName.toLowerCase();
   const targetUserId = data.siteId.toLowerCase();
 
   const parsedPageResults = await handleSiteName(siteName, targetUserId);
 
-  // const urlProps = await handleSiteConfig(url, siteName);
-  // if (urlProps.error) return failure(urlProps.error);
-
-  // const { root, urlParams, selectors } = urlProps;
-  // const urls = await fetchUrls(root, urlParams, selectors, url);
-  // if (urls.error) return failure(urls.error);
 
   return success();
 }
