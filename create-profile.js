@@ -3,14 +3,14 @@ import { JSDOM } from "jsdom";
 import * as dynamoDbLib from "./libs/dynamodb-lib";
 import { success, failure } from "./libs/response-lib";
 
-const dynamoDbUpload = async (pageResultsObject, userId, siteName) => {
+const dynamoDbUpload = async (pageResultsObject, userId, variant) => {
   const { question, responses } = pageResultsObject;
   const { url, title, body, author, comments } = question;
   const params = {
     TableName: process.env.tableName,
     Item: {
       userId,
-      siteName,
+      variant,
       url,
       title,
       body,
@@ -137,19 +137,18 @@ const handleSpectrum = targetUserId => {};
 const handleTwitter = targetUserId => {};
 const handleGithub = targetUserId => {};
 
-const handleSiteName = async (siteName, targetUserId) => {
-  if (siteName === "stackoverflow") return handleStackOverflow(targetUserId);
-  if (siteName === "spectrum") return handleSpectrum(targetUserId);
-  if (siteName === "twitter") return handleTwitter(targetUserId);
-  if (siteName === "github") return handleGithub(targetUserId);
+const handleVariant = async (variant, targetUserId) => {
+  if (variant === "stackoverflow") return handleStackOverflow(targetUserId);
+  if (variant === "spectrum") return handleSpectrum(targetUserId);
+  if (variant === "twitter") return handleTwitter(targetUserId);
+  if (variant === "github") return handleGithub(targetUserId);
   return { error: "not a valid site" };
 };
 
 export default async function main(event) {
   const data = JSON.parse(event.body);
   const { userId } = event.requestContext.identity.cognitoIdentityId;
-  const siteName = data.siteName.toLowerCase();
-  const targetUserId = data.siteId.toLowerCase();
+  const { variant, targetUserId } = data;
 
   const parsedPageResults = await handleSiteName(siteName, targetUserId);
 
