@@ -39,7 +39,7 @@ const getPage = async postId => {
   return getPageData;
 };
 
-const parsePost = (post, selectors) => {
+const parsePost = (post, selectors, targetUsername) => {
   const boolSelector = "question";
   const postAuthorSelector = ".user-details a";
   const bodySelector = ".post-text";
@@ -64,7 +64,8 @@ const parsePost = (post, selectors) => {
 
     comments.push({
       body: commentBody.textContent.trim(),
-      author: commentAuthor.textContent.trim()
+      author: commentAuthor.textContent.trim(),
+      targetMatch: author === targetUsername
     });
   });
 
@@ -72,13 +73,14 @@ const parsePost = (post, selectors) => {
     questionBool,
     body: body.textContent.trim(),
     author: author.textContent.trim(),
-    comments
+    comments,
+    targetMatch: author === targetUsername
   };
 
   return parsedPost;
 };
 
-const parsePage = async (page, selectors) => {
+const parsePage = async (page, selectors, targetUsername) => {
   const dom = await new JSDOM(page);
   const { document } = await dom.window;
   const titleSelector = ".question-hyperlink";
@@ -96,8 +98,8 @@ const parsePage = async (page, selectors) => {
   const responses = [];
 
   posts.forEach(post => {
-    const result = parsePost(post, selectors);
-    const { questionBool, body, author, comments } = result;
+    const result = parsePost(post, selectors, targetUsername);
+    const { questionBool, body, author, comments, targetMatch } = result;
 
     if (questionBool) {
       question = {
@@ -105,7 +107,8 @@ const parsePage = async (page, selectors) => {
         title: questionTitle.textContent.trim(),
         body,
         author,
-        comments
+        comments,
+        targetMatch
       };
       return;
     }
