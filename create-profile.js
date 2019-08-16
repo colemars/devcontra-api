@@ -153,6 +153,9 @@ export default async function main(event) {
 
   const parsedPageResults = await handleSiteName(siteName, targetUserId);
 
+  const upload = await Promise.all(
+    parsedPageResults.map(result => dynamoDbUpload(result, userId, siteName))
+  );
 
   return success();
 }
