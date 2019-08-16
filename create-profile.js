@@ -169,7 +169,9 @@ const handleVariant = async (variant, targetUserId) => {
 export default async function main(event) {
   const data = JSON.parse(event.body);
   const { userId } = event.requestContext.identity.cognitoIdentityId;
-  console.log("event id", userId);
+  console.log("context", event.requestContext);
+  console.log("id", event.requestContext.identity);
+  console.log("cognito id", userId);
   const { variant, targetUserId } = data;
 
   const { response, error } = await handleVariant(variant, targetUserId);
