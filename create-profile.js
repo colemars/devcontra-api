@@ -129,6 +129,10 @@ const handleStackOverflow = async targetUserId => {
 
   const userObject = await fetch(getUsername);
   const userData = await userObject.json();
+
+  // ERROR POINT
+  console.log(userData);
+  console.log(userData.items);
   const displayName = userData.items[0].display_name;
 
   if (!userObject || !displayName) return { error: "Invalid user id" };
