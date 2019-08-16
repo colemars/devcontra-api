@@ -6,6 +6,7 @@ import { success, failure } from "./libs/response-lib";
 const dynamoDbUpload = async (pageResultsObject, userId, variant) => {
   const { question, responses } = pageResultsObject;
   const { url, title, body, author, comments } = question;
+  console.log(userId);
   const params = {
     TableName: process.env.tableName,
     Item: {
@@ -173,7 +174,7 @@ export default async function main(event) {
   const { response, error } = await handleVariant(variant, targetUserId);
 
   if (error) return failure(error);
-
+  console.log(userId);
   try {
   const upload = await Promise.all(
       response.map(result => dynamoDbUpload(result, userId, variant))
