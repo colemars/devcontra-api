@@ -1,11 +1,7 @@
 import fetch from "node-fetch";
-// import * as dynamoDbLib from "./libs/dynamodb-lib";
-// import fetchUrls from "./helpers/fetch-urls";
-// import handleSiteConfig from "./helpers/handle-site-config";
 import { JSDOM } from "jsdom";
+import * as dynamoDbLib from "./libs/dynamodb-lib";
 import { success, failure } from "./libs/response-lib";
-// import fetchContent from "./helpers/fetch-content";
-// import fetchContent from "./helpers/fetch-content";
 
 const getContent = async postId => {
   const getContentResponse = await fetch(
