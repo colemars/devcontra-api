@@ -3,8 +3,6 @@ import { JSDOM } from "jsdom";
 import * as dynamoDbLib from "./libs/dynamodb-lib";
 import { success, failure } from "./libs/response-lib";
 
-const getContent = async postId => {
-  const getContentResponse = await fetch(
 const dynamoDbUpload = async (pageResultsObject, userId, siteName) => {
   const { question, responses } = pageResultsObject;
   const { url, title, body, author, comments } = question;
@@ -33,10 +31,12 @@ const dynamoDbUpload = async (pageResultsObject, userId, siteName) => {
   }
 };
 
+const getPage = async postId => {
+  const getPageResponse = await fetch(
     `https://stackoverflow.com/questions/${postId}/`
   );
-  const getContentData = await getContentResponse.text();
-  return getContentData;
+  const getPageData = await getPageResponse.text();
+  return getPageData;
 };
 
 const parsePost = (post, selectors) => {
