@@ -49,8 +49,10 @@ const parsePost = (post, selectors) => {
   const body = post.querySelector(bodySelector);
   const author = post.querySelector(postAuthorSelector);
   const commentEls = post.querySelectorAll(commentsSelector);
+
   // sanity check
   if (!commentEls || !author || !body) return false;
+
   const comments = [];
 
   commentEls.forEach(el => {
@@ -113,9 +115,9 @@ const parsePage = async (page, selectors) => {
   return { question, responses };
 };
 
-const handleStackOverflow = async siteUserId => {
+const handleStackOverflow = async targetUserId => {
   console.log("in stack");
-  const userUrl = `https://api.stackexchange.com/2.2/users/${siteUserId}/posts?order=desc&sort=activity&site=stackoverflow`;
+  const userUrl = `https://api.stackexchange.com/2.2/users/${targetUserId}/posts?order=desc&sort=activity&site=stackoverflow`;
 
   const response = await fetch(userUrl);
   const data = await response.json();
@@ -131,15 +133,15 @@ const handleStackOverflow = async siteUserId => {
   return parsedPages;
 };
 
-const handleSpectrum = siteUserId => {};
-const handleTwitter = siteUserId => {};
-const handleGithub = siteUserId => {};
+const handleSpectrum = targetUserId => {};
+const handleTwitter = targetUserId => {};
+const handleGithub = targetUserId => {};
 
-const handleSiteName = async (siteName, siteUserId) => {
-  if (siteName === "stackoverflow") return handleStackOverflow(siteUserId);
-  if (siteName === "spectrum") return handleSpectrum(siteUserId);
-  if (siteName === "twitter") return handleTwitter(siteUserId);
-  if (siteName === "github") return handleGithub(siteUserId);
+const handleSiteName = async (siteName, targetUserId) => {
+  if (siteName === "stackoverflow") return handleStackOverflow(targetUserId);
+  if (siteName === "spectrum") return handleSpectrum(targetUserId);
+  if (siteName === "twitter") return handleTwitter(targetUserId);
+  if (siteName === "github") return handleGithub(targetUserId);
   return { error: "not a valid site" };
 };
 
@@ -150,8 +152,9 @@ export default async function main(event) {
   // const siteUserId = data.siteId.toLowerCase();
   const siteName = "stackoverflow";
   const siteUserId = "10606984";
+  const targetUserId = data.siteId.toLowerCase();
 
-  const results = await handleSiteName(siteName, siteUserId);
+  const parsedPageResults = await handleSiteName(siteName, targetUserId);
 
   // const urlProps = await handleSiteConfig(url, siteName);
   // if (urlProps.error) return failure(urlProps.error);
