@@ -117,20 +117,31 @@ const parsePage = async (page, selectors) => {
 
 const handleStackOverflow = async targetUserId => {
   console.log("in stack");
-  const userUrl = `https://api.stackexchange.com/2.2/users/${targetUserId}/posts?order=desc&sort=activity&site=stackoverflow`;
+  const getPosts = `https://api.stackexchange.com/2.2/users/${targetUserId}/posts?order=desc&sort=activity&site=stackoverflow`;
+  const getUsername = `https://api.stackexchange.com/2.2/users/${targetUserId}?order=desc&sort=reputation&site=stackoverflow`;
 
-  const response = await fetch(userUrl);
-  const data = await response.json();
-  const posts = data.items;
+  const postsObject = await fetch(getPosts);
+  const postsData = await postsObject.json();
+  const posts = postsData.items;
 
+  const userObject = await fetch(getUsername);
+  const displayName = userObject.display_name;
+
+  if (!userObject || !displayName) return { error: "Invalid user id" };
+
+  if (posts.length === 0) return { error: "This user has no posts to fetch" };
+
+  try {
   const contentResults = await Promise.all(
     posts.map(post => getPage(post.post_id))
   );
   const parsedPages = await Promise.all(
-    contentResults.map(result => parsePage(result))
+      contentResults.map(result => parsePage(result, displayName))
   );
-
   return parsedPages;
+  } catch (err) {
+    return { error: err };
+  }
 };
 
 const handleSpectrum = targetUserId => {};
