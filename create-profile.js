@@ -177,8 +177,10 @@ export default async function main(event) {
   const userId = event.requestContext.identity.cognitoIdentityId;
   const { variant, targetUserId } = data;
 
-  const { response, error } = await handleVariant(variant, targetUserId);
+  console.log(targetUserId, variant);
 
+  const { response, error } = await handleVariant(variant, targetUserId);
+  console.log(response);
   if (error) return failure(error);
 
   try {
