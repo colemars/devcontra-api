@@ -7,7 +7,7 @@ Resources:
         - AttributeName: userId
           AttributeType: S
         - AttributeName: postId
-          AttributeType: S
+          AttributeType: N
         - AttributeName: variant
           AttributeType: S
       KeySchema:
