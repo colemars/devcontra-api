@@ -97,17 +97,13 @@ const parsePage = async (page, selectors, targetUsername) => {
   } = selectors;
 
   const questionEl = document.querySelector(questionSelector);
-  let id = Number(questionEl.getAttribute(questionIdAttribute));
+  const id = Number(questionEl.getAttribute(questionIdAttribute));
   const title = document.querySelector(titleSelector);
   const url = document.querySelector(urlSelector);
   const posts = document.querySelectorAll(postSelector);
 
   // sanity check
   if (!id || !title || !posts || !url) return false;
-
-  if (id === 57301087) {
-    id = "string";
-  }
 
   let question;
   const responses = [];
