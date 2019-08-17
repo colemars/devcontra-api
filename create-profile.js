@@ -47,7 +47,8 @@ const parsePost = (post, selectors, targetUsername) => {
     postAuthorSelector,
     bodySelector,
     commentsSelector,
-    commentAuthorSelector
+    commentAuthorSelector,
+    commentContentSelector
   } = selectors;
 
   const questionBool = post.parentElement.id === boolSelector;
@@ -88,7 +89,8 @@ const parsePost = (post, selectors, targetUsername) => {
 const parsePage = async (page, selectors, targetUsername, postId) => {
   const dom = await new JSDOM(page);
   const { document } = await dom.window;
-  const { titleSelector, urlSelector, postSelector } = selectors;
+    questionSelector,
+    questionIdAttribute
 
   const questionTitle = document.querySelector(titleSelector);
   const url = document.querySelector(urlSelector);
@@ -132,7 +134,10 @@ const handleStackOverflow = async targetUserId => {
     postAuthorSelector: ".user-details a",
     bodySelector: ".post-text",
     commentsSelector: ".comment-body",
-    commentAuthorSelector: ".comment-user"
+    commentAuthorSelector: ".comment-user",
+    commentContentSelector: ".comment-copy",
+    questionSelector: "#question",
+    questionIdAttribute: "data-questionid"
   };
 
   const jsonify = async target => {
