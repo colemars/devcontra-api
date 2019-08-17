@@ -199,13 +199,10 @@ export default async function main(event) {
   console.log(response);
   if (error) return failure(error);
 
-  try {
     const upload = await Promise.all(
       response.map(result => dynamoDbUpload(result, userId, variant))
     );
-    console.log(upload);
-    return upload;
-  } catch (err) {
-    return failure(err);
-  }
+  if (!upload.every(item => item === true))
+    return failure(upload.map(item => item.error));
+  return success(`${variant} profile created`);
 }
