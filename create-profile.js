@@ -117,7 +117,7 @@ const parsePage = async (page, selectors, targetUsername, postId) => {
       question = {
         postId,
         url: url.href,
-        title: questionTitle.textContent.trim(),
+        title: title.textContent.trim(),
         body,
         author,
         comments,
