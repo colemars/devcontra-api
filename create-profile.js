@@ -89,15 +89,22 @@ const parsePost = (post, selectors, targetUsername) => {
 const parsePage = async (page, selectors, targetUsername, postId) => {
   const dom = await new JSDOM(page);
   const { document } = await dom.window;
+  const {
+    titleSelector,
+    urlSelector,
+    postSelector,
     questionSelector,
     questionIdAttribute
+  } = selectors;
 
-  const questionTitle = document.querySelector(titleSelector);
+  const questionEl = document.querySelector(questionSelector);
+  const id = questionEl.getAttribute(questionIdAttribute);
+  const title = document.querySelector(titleSelector);
   const url = document.querySelector(urlSelector);
   const posts = document.querySelectorAll(postSelector);
 
   // sanity check
-  if (!questionTitle || !posts || !url) return false;
+  if (!id || !title || !posts || !url) return false;
 
   let question;
   const responses = [];
