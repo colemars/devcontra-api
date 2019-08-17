@@ -5,12 +5,13 @@ import { success, failure } from "./libs/response-lib";
 
 const dynamoDbUpload = async (pageResultsObject, userId, variant) => {
   const { question, responses } = pageResultsObject;
-  const { url, title, body, author, comments, postId } = question;
+  const { url, title, body, author, comments, id, targetMatch } = question;
+
   const params = {
     TableName: process.env.tableName,
     Item: {
       userId,
-      postId,
+      postId: id,
       variant,
       url,
       title,
@@ -18,6 +19,7 @@ const dynamoDbUpload = async (pageResultsObject, userId, variant) => {
       author,
       comments,
       responses,
+      targetMatch,
       createdAt: Date.now()
     }
   };
