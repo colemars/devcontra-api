@@ -120,22 +120,19 @@ const parsePage = async (page, selectors, targetUsername) => {
 };
 
 const handleStackOverflow = async targetUserId => {
-  // promise.all convert
-  console.log("in stack");
-  console.log(targetUserId);
   const getPosts = `https://api.stackexchange.com/2.2/users/${targetUserId}/posts?order=desc&sort=activity&site=stackoverflow`;
   const getUsername = `https://api.stackexchange.com/2.2/users/${targetUserId}?order=desc&sort=reputation&site=stackoverflow`;
+  const [postsObject, userObject] = await Promise.all([
+    fetch(getPosts),
+    fetch(getUsername)
+  ]);
+  const [postsData, userData] = await Promise.all([
+    postsObject.json(),
+    userObject.json()
+  ]);
 
-  const postsObject = await fetch(getPosts);
-  const postsData = await postsObject.json();
   const posts = postsData.items;
 
-  const userObject = await fetch(getUsername);
-  const userData = await userObject.json();
-
-  // ERROR POINT
-  console.log(userData);
-  console.log(userData.items);
   const displayName = userData.items[0].display_name;
 
   if (!userObject || !displayName) return { error: "Invalid user id" };
