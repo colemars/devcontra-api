@@ -196,7 +196,6 @@ export default async function main(event) {
   console.log(targetUserId, variant);
 
   const { response, error } = await handleVariant(variant, targetUserId);
-  console.log(response);
   if (error) return failure(error);
 
     const upload = await Promise.all(
