@@ -146,7 +146,7 @@ const handleStackOverflow = async targetUserId => {
 
   const displayName = userData.items[0].display_name;
 
-  if (!userObject || !displayName) return { error: "Invalid user id" };
+  if (!userData || !displayName) return { error: "Invalid user id" };
   if (posts.length === 0) return { error: "This user has no posts to fetch" };
 
   try {
