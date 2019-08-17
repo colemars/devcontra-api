@@ -97,7 +97,7 @@ const parsePage = async (page, selectors, targetUsername) => {
   } = selectors;
 
   const questionEl = document.querySelector(questionSelector);
-  const id = questionEl.getAttribute(questionIdAttribute);
+  const id = Number(questionEl.getAttribute(questionIdAttribute));
   const title = document.querySelector(titleSelector);
   const url = document.querySelector(urlSelector);
   const posts = document.querySelectorAll(postSelector);
