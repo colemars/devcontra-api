@@ -203,6 +203,7 @@ export default async function main(event) {
     const upload = await Promise.all(
       response.map(result => dynamoDbUpload(result, userId, variant))
     );
+    console.log(upload);
     return upload;
   } catch (err) {
     return failure(err);
