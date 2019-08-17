@@ -82,11 +82,10 @@ const parsePost = (post, selectors, targetUsername) => {
     comments,
     targetMatch: author.textContent.trim() === targetUsername
   };
-
   return parsedPost;
 };
 
-const parsePage = async (page, selectors, targetUsername, postId) => {
+const parsePage = async (page, selectors, targetUsername) => {
   const dom = await new JSDOM(page);
   const { document } = await dom.window;
   const {
@@ -110,12 +109,12 @@ const parsePage = async (page, selectors, targetUsername, postId) => {
   const responses = [];
 
   posts.forEach(post => {
-    const result = parsePost(post, selectors, targetUsername, postId);
+    const result = parsePost(post, selectors, targetUsername);
     const { questionBool, body, author, comments, targetMatch } = result;
 
     if (questionBool) {
       question = {
-        postId,
+        id,
         url: url.href,
         title: title.textContent.trim(),
         body,
