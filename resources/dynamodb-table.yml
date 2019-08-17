@@ -6,12 +6,23 @@ Resources:
       AttributeDefinitions:
         - AttributeName: userId
           AttributeType: S
+        - AttributeName: postId
+          AttributeType: S
         - AttributeName: variant
           AttributeType: S
       KeySchema:
         - AttributeName: userId
           KeyType: HASH
-        - AttributeName: variant
+        - AttributeName: postId
           KeyType: RANGE
       # Set the capacity to auto-scale
       BillingMode: PAY_PER_REQUEST
+      LocalSecondaryIndexes:
+        - IndexName: userId-variant-index
+          KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+          - AttributeName: variant
+            KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
