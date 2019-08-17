@@ -80,7 +80,7 @@ const parsePost = (post, selectors, targetUsername) => {
     body: body.textContent.trim(),
     author: author.textContent.trim(),
     comments,
-    targetMatch: author === targetUsername
+    targetMatch: author.textContent.trim() === targetUsername
   };
 
   return parsedPost;
