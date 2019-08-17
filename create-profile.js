@@ -154,7 +154,9 @@ const handleStackOverflow = async targetUserId => {
       posts.map(post => getPage(post.post_id))
     );
     const parsedPages = await Promise.all(
-      contentResults.map(result => parsePage(result, displayName))
+      posts.map(async post => {
+        return parsePage(await getPage(post.post_id), selectors, displayName);
+      })
     );
     return { response: parsedPages };
   } catch (err) {
