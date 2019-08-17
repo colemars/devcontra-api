@@ -131,9 +131,15 @@ const handleStackOverflow = async targetUserId => {
     commentsSelector: ".comment-body",
     commentAuthorSelector: ".comment-user"
   };
+
+  const jsonify = async target => {
+    const result = await target.json();
+    return result;
+  };
+
   const [postsData, userData] = await Promise.all([
-    postsObject.json(),
-    userObject.json()
+    jsonify(await fetch(getPosts)),
+    jsonify(await fetch(getUsername))
   ]);
 
   const posts = postsData.items;
