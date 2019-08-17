@@ -23,7 +23,6 @@ const dynamoDbUpload = async (pageResultsObject, userId, variant) => {
 
   try {
     const result = await dynamoDbLib.call("put", params);
-    console.log(result);
     return success(result);
   } catch (e) {
     console.log(e);
@@ -40,10 +39,13 @@ const getPage = async postId => {
 };
 
 const parsePost = (post, selectors, targetUsername) => {
-  const boolSelector = "question";
-  const postAuthorSelector = ".user-details a";
-  const bodySelector = ".post-text";
-  const commentsSelector = ".comment-body";
+  const {
+    boolSelector,
+    postAuthorSelector,
+    bodySelector,
+    commentsSelector,
+    commentAuthorSelector
+  } = selectors;
 
   const questionBool = post.parentElement.id === boolSelector;
   const body = post.querySelector(bodySelector);
@@ -56,8 +58,8 @@ const parsePost = (post, selectors, targetUsername) => {
   const comments = [];
 
   commentEls.forEach(el => {
-    const commentBody = el.querySelector(".comment-copy");
-    const commentAuthor = el.querySelector(".comment-user");
+    const commentBody = el.querySelector(commentsSelector);
+    const commentAuthor = el.querySelector(commentAuthorSelector);
 
     // sanity check
     if (!commentBody || !commentAuthor) return;
@@ -83,9 +85,7 @@ const parsePost = (post, selectors, targetUsername) => {
 const parsePage = async (page, selectors, targetUsername) => {
   const dom = await new JSDOM(page);
   const { document } = await dom.window;
-  const titleSelector = ".question-hyperlink";
-  const urlSelector = ".question-hyperlink";
-  const postSelector = ".post-layout";
+  const { titleSelector, urlSelector, postSelector } = selectors;
 
   const questionTitle = document.querySelector(titleSelector);
   const url = document.querySelector(urlSelector);
@@ -121,10 +121,16 @@ const parsePage = async (page, selectors, targetUsername) => {
 const handleStackOverflow = async targetUserId => {
   const getPosts = `https://api.stackexchange.com/2.2/users/${targetUserId}/posts?order=desc&sort=activity&site=stackoverflow`;
   const getUsername = `https://api.stackexchange.com/2.2/users/${targetUserId}?order=desc&sort=reputation&site=stackoverflow`;
-  const [postsObject, userObject] = await Promise.all([
-    fetch(getPosts),
-    fetch(getUsername)
-  ]);
+  const selectors = {
+    titleSelector: ".question-hyperlink",
+    urlSelector: ".question-hyperlink",
+    postSelector: ".post-layout",
+    boolSelector: "question",
+    postAuthorSelector: ".user-details a",
+    bodySelector: ".post-text",
+    commentsSelector: ".comment-body",
+    commentAuthorSelector: ".comment-user"
+  };
   const [postsData, userData] = await Promise.all([
     postsObject.json(),
     userObject.json()
