@@ -5,11 +5,12 @@ import { success, failure } from "./libs/response-lib";
 
 const dynamoDbUpload = async (pageResultsObject, userId, variant) => {
   const { question, responses } = pageResultsObject;
-  const { url, title, body, author, comments } = question;
+  const { url, title, body, author, comments, postId } = question;
   const params = {
     TableName: process.env.tableName,
     Item: {
       userId,
+      postId,
       variant,
       url,
       title,
@@ -82,7 +83,7 @@ const parsePost = (post, selectors, targetUsername) => {
   return parsedPost;
 };
 
-const parsePage = async (page, selectors, targetUsername) => {
+const parsePage = async (page, selectors, targetUsername, postId) => {
   const dom = await new JSDOM(page);
   const { document } = await dom.window;
   const { titleSelector, urlSelector, postSelector } = selectors;
@@ -98,11 +99,12 @@ const parsePage = async (page, selectors, targetUsername) => {
   const responses = [];
 
   posts.forEach(post => {
-    const result = parsePost(post, selectors, targetUsername);
+    const result = parsePost(post, selectors, targetUsername, postId);
     const { questionBool, body, author, comments, targetMatch } = result;
 
     if (questionBool) {
       question = {
+        postId,
         url: url.href,
         title: questionTitle.textContent.trim(),
         body,
@@ -151,7 +153,8 @@ const handleStackOverflow = async targetUserId => {
   try {
     const parsedPages = await Promise.all(
       posts.map(async post => {
-        return parsePage(await getPage(post.post_id), selectors, displayName);
+        const postId = post.post_id;
+        return parsePage(await getPage(postId), selectors, displayName, postId);
       })
     );
     return { response: parsedPages };
