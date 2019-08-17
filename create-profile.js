@@ -203,6 +203,7 @@ export default async function main(event) {
       response.map(result => dynamoDbUpload(result, userId, variant))
     );
   if (!upload.every(item => item === true))
+    // TO DO build error parser;
     return failure(upload.map(item => item.error));
   return success(`${variant} profile created`);
 }
