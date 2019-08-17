@@ -114,7 +114,6 @@ const parsePage = async (page, selectors, targetUsername) => {
     }
     responses.push({ body, author, comments });
   });
-
   return { question, responses };
 };
 
@@ -150,9 +149,6 @@ const handleStackOverflow = async targetUserId => {
   if (posts.length === 0) return { error: "This user has no posts to fetch" };
 
   try {
-    const contentResults = await Promise.all(
-      posts.map(post => getPage(post.post_id))
-    );
     const parsedPages = await Promise.all(
       posts.map(async post => {
         return parsePage(await getPage(post.post_id), selectors, displayName);
