@@ -62,7 +62,7 @@ const parsePost = (post, selectors, targetUsername) => {
   const comments = [];
 
   commentEls.forEach(el => {
-    const commentBody = el.querySelector(commentsSelector);
+    const commentBody = el.querySelector(commentContentSelector);
     const commentAuthor = el.querySelector(commentAuthorSelector);
 
     // sanity check
@@ -71,7 +71,7 @@ const parsePost = (post, selectors, targetUsername) => {
     comments.push({
       body: commentBody.textContent.trim(),
       author: commentAuthor.textContent.trim(),
-      targetMatch: author === targetUsername
+      targetMatch: commentAuthor.textContent.trim() === targetUsername
     });
   });
 
