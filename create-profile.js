@@ -26,10 +26,11 @@ const dynamoDbUpload = async (pageResultsObject, userId, variant) => {
 
   try {
     const result = await dynamoDbLib.call("put", params);
-    return success(result);
+    console.log(result);
+    return true;
   } catch (e) {
     console.log(e);
-    return failure({ status: false });
+    return { error: e };
   }
 };
 
