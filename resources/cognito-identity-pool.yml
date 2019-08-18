@@ -5,7 +5,7 @@ Resources:
     Properties:
       # Generate a name based on the stage
       IdentityPoolName: ${self:custom.stage}DevcontraIdentityPool
-      # allow unathenticated users
+      # don't allow unathenticated users
       AllowUnauthenticatedIdentities: false
       CognitoIdentityProviders:
         - ClientId:
