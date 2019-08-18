@@ -69,7 +69,7 @@ Resources:
                       - ':'
                       - Ref: ApiGatewayRestApi
                       - '/*'
-  
+
 # Print out the Id of the Identity Pool that is created
 Outputs:
   IdentityPoolId:
