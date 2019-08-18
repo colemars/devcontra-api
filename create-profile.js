@@ -6,11 +6,8 @@ export default async function main(event) {
   const authProvider =
     event.requestContext.identity.cognitoAuthenticationProvider;
   const parts = authProvider.split(":");
-  // const userPoolIdParts = parts[parts.length - 3].split("/");
-  // const userPoolId = userPoolIdParts[userPoolIdParts.length - 1];
   const userPoolUserId = parts[parts.length - 1];
   const data = JSON.parse(event.body);
-  // const userId = event.requestContext.identity.cognitoIdentityId;
   const { variant, targetUserId } = data;
 
   const { response, error } = await handleVariant(variant, targetUserId);
