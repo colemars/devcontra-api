@@ -202,9 +202,9 @@ export default async function main(event) {
   const { response, error } = await handleVariant(variant, targetUserId);
   if (error) return failure(error);
 
-    const upload = await Promise.all(
+  const upload = await Promise.all(
     response.map(result => dynamoDbUpload(result, userPoolUserId, variant))
-    );
+  );
   if (!upload.every(item => item === true))
     // TO DO build error parser;
     return failure(upload.map(item => item.error));
