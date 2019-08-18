@@ -6,7 +6,7 @@
           "request": "launch",
           "name": "Debug",
           "autoAttachChildProcesses": true,
-          "program": "${workspaceFolder}/helpers/get-urls.js",
+          "program": "${workspaceFolder}/create-profile.js",
           "console": "internalConsole",
           "runtimeArgs": ["--nolazy", "--require", "@babel/register"],
           "env": {
