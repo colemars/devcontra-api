@@ -49,8 +49,8 @@ provider:
         - "Fn::GetAtt": [ ReportsTable, Arn ]
             
 functions:
-  # Defines an HTTP API endpoint that calls the main function in create.js
-  # - path: url path is /notes
+  # Defines an HTTP API endpoint that calls the main function in create-profile.js
+  # - path: url path is /profile
   # - method: POST request
   # - cors: enabled CORS (Cross-Origin Resource Sharing) for browser cross
   #     domain api call
@@ -58,13 +58,22 @@ functions:
   create-profile:
     handler: create-profile.default
     memorySize: 1600
-    timeout: 300
     events:
       - http:
           path: profile
           method: post
           cors: true
           authorizer: aws_iam
+  get-profile:
+    handler: get-profile.default
+    memorySize: 1600
+    events:
+      - http:
+          path: profile
+          method: get
+          cors: true
+          authorizer: aws_iam
+
 # Create our resources with separate CloudFormation templates
 resources:
   # API Gateway Errors

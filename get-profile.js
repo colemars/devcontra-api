@@ -2,16 +2,30 @@ import * as dynamoDbLib from "./libs/dynamodb-lib";
 import { success, failure } from "./libs/response-lib";
 
 export default async function main(event) {
-  console.log(event);
+  const authProvider =
+    event.requestContext.identity.cognitoAuthenticationProvider;
+  const parts = authProvider.split(":");
+  const userPoolUserId = parts[parts.length - 1];
+  const data = JSON.parse(event.body);
+  const { variant } = data;
+
   const params = {
     TableName: process.env.tableName,
-    Key: {
-      userId: event.requestContext.identity.cognitoIdentityId,
-      siteName: event.pathParameters.site
-    }
+    IndexName: "userId-variant-index",
+    KeyConditionExpression: "userId = :id and variant = :variant",
+    ExpressionAttributeValues: {
+      ":id": userPoolUserId,
+      ":variant": variant
+    },
+    Select: "ALL_PROJECTED_ATTRIBUTES"
   };
-
-  const result = await dynamoDbLib.call("get", params);
-  if (result.Item) return success(result);
-  return failure({ status: false });
+  try {
+    const profile = await dynamoDbLib.call("query", params);
+    if (profile.Items) {
+      return success(profile.Items);
+    }
+    return success({ profile: "Not yet created" });
+  } catch (e) {
+    return failure({ error: e, status: false });
+  }
 }
