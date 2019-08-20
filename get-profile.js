@@ -6,8 +6,7 @@ export default async function main(event) {
     event.requestContext.identity.cognitoAuthenticationProvider;
   const parts = authProvider.split(":");
   const userPoolUserId = parts[parts.length - 1];
-  const data = JSON.parse(event.body);
-  const { variant } = data;
+  const { variant } = event.pathParameters;
 
   const params = {
     TableName: process.env.tableName,
