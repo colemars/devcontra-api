@@ -69,7 +69,7 @@ functions:
     memorySize: 1600
     events:
       - http:
-          path: profile
+          path: profile/{variant}
           method: get
           cors: true
           authorizer: aws_iam
