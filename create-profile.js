@@ -8,13 +8,15 @@ export default async function main(event) {
   const parts = authProvider.split(":");
   const userPoolUserId = parts[parts.length - 1];
   const data = JSON.parse(event.body);
-  const { variant, targetUserId } = data;
+  const { variant, targetUserId, profileUrl } = data;
 
   const { response, error } = await handleVariant(variant, targetUserId);
   if (error) return failure(error);
 
   const upload = await Promise.all(
-    response.map(result => dynamoDbUpload(result, userPoolUserId, variant))
+    response.map(result =>
+      dynamoDbUpload(result, userPoolUserId, variant, profileUrl)
+    )
   );
   if (!upload.every(item => item === true))
     // TO DO build error parser;

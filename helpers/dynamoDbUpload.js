@@ -1,6 +1,11 @@
 import * as dynamoDbLib from "../libs/dynamodb-lib";
 
-const dynamoDbUpload = async (pageResultsObject, userId, variant) => {
+const dynamoDbUpload = async (
+  pageResultsObject,
+  userId,
+  variant,
+  profileUrl
+) => {
   const { question, responses } = pageResultsObject;
   const { url, title, body, author, comments, id, targetMatch } = question;
 
@@ -17,6 +22,7 @@ const dynamoDbUpload = async (pageResultsObject, userId, variant) => {
       comments,
       responses,
       targetMatch,
+      profileUrl,
       createdAt: Date.now()
     }
   };
