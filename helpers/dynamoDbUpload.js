@@ -1,27 +1,29 @@
+/* eslint-disable camelcase */
 import * as dynamoDbLib from "../libs/dynamodb-lib";
 
-const dynamoDbUpload = async (
-  pageResultsObject,
-  userId,
-  variant,
-  profileUrl
-) => {
-  const { question, responses } = pageResultsObject;
-  const { url, title, body, author, comments, id, targetMatch } = question;
+const dynamoDbUpload = async (result, userId, variant, profileUrl) => {
+  const {
+    timeline_type,
+    creation_date,
+    detail,
+    title,
+    post_type,
+    comment_id,
+    post_id
+  } = result;
 
   const params = {
     TableName: process.env.tableName,
     Item: {
       userId,
-      postId: id,
+      timelineType: timeline_type,
       variant,
-      url,
+      creationDate: creation_date,
       title,
-      body,
-      author,
-      comments,
-      responses,
-      targetMatch,
+      detail,
+      postType: post_type,
+      commentId: comment_id,
+      postId: post_id,
       profileUrl,
       createdAt: Date.now()
     }
