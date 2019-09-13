@@ -53,7 +53,7 @@ const handleStackOverflow = async targetUserId => {
     item.creation_date = begOfWeek;
     return item;
   });
-  return activity;
+  return { response: activity };
 
   // try {
   //   const parsedPages = await Promise.all(
