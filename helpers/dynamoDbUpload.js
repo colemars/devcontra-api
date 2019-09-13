@@ -12,6 +12,8 @@ const dynamoDbUpload = async (result, userId, variant, profileUrl) => {
     post_id
   } = result;
 
+  const nonPost = 100;
+
   const params = {
     TableName: process.env.tableName,
     Item: {
@@ -23,7 +25,7 @@ const dynamoDbUpload = async (result, userId, variant, profileUrl) => {
       detail,
       postType: post_type,
       commentId: comment_id,
-      postId: post_id,
+      postId: post_id || nonPost,
       profileUrl,
       createdAt: Date.now()
     }
