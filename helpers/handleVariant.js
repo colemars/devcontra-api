@@ -12,7 +12,7 @@ const handleStackOverflow = async targetUserId => {
     .subtract(17, "weeks")
     .startOf("isoweek")
     .unix();
-  const getActivity = `https://api.stackexchange.com/2.2/users/${targetUserId}/timeline?pagesize=40&fromdate=${fromDate}&site=stackoverflow`;
+  const getActivity = `https://api.stackexchange.com/2.2/users/${targetUserId}/timeline?pagesize=100&fromdate=${fromDate}&site=stackoverflow`;
   // const selectors = {
   //   titleSelector: ".question-hyperlink",
   //   urlSelector: ".question-hyperlink",
