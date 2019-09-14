@@ -9,7 +9,7 @@ export default async function main(event) {
   const userPoolUserId = parts[parts.length - 1];
   const data = JSON.parse(event.body);
   const { variant, profileUrl } = data;
-
+  console.log(profileUrl, variant);
   const { response, error } = await handleVariant(variant, profileUrl);
   if (error) return failure(error);
 
