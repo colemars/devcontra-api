@@ -11,6 +11,11 @@ const constructReturnObject = (id, date, type) => {
   };
 };
 
+const jsonify = async target => {
+  const result = await target.json();
+  return result.items;
+};
+
 const handleStackOverflow = async targetUserId => {
   const now = moment().utc();
   const toDate = now.clone().unix();
@@ -21,21 +26,13 @@ const handleStackOverflow = async targetUserId => {
     .unix();
   const getActivity = `https://api.stackexchange.com/2.2/users/${targetUserId}/timeline?pagesize=100&fromdate=${fromDate}&todate=${toDate}&site=stackoverflow`;
 
-  const jsonify = async target => {
-    const result = await target.json();
-    return result;
-  };
-
-  const [activityData] = await Promise.all([
+  const [activity] = await Promise.all([
     // jsonify(await fetch(getActivity)),
     // jsonify(await fetch(getActivity)),
     jsonify(await fetch(getActivity))
   ]);
 
-  if (!activityData) return { error: "Invalid user id" };
-  const activity = activityData.items;
-  if (activity.length === 0)
-    return { error: "This user has no posts to fetch" };
+  if (!activity) return { error: "Invalid user id" };
 
   const returnObject = activity.map(item => {
     const { creation_date, timeline_type } = item;
@@ -63,11 +60,6 @@ const handleGithub = async targetUserId => {
   const getPRActivity = `https://api.github.com/search/issues?q=author:${targetUserId}+type:pr+created:>=${fromDate}`;
   const getIssueActivity = `https://api.github.com/search/issues?q=author:${targetUserId}+type:issue+created:>=${fromDate}`;
 
-  const jsonify = async target => {
-    const result = await target.json();
-    return result.items;
-  };
-
   const options = {
     headers: { Accept: "application/vnd.github.cloak-preview" }
   };
@@ -77,6 +69,8 @@ const handleGithub = async targetUserId => {
     jsonify(await fetch(getIssueActivity, options)),
     jsonify(await fetch(getPRActivity, options))
   ]);
+
+  if (!commits || !issues || !pullRequests) return { error: "Invalid user id" };
 
   commits.map(type => {
     type.type = "commit";
