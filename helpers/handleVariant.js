@@ -2,12 +2,12 @@ import fetch from "node-fetch";
 import moment from "moment";
 
 const handleStackOverflow = async targetUserId => {
-  const now = moment();
+  const now = moment().utc();
   const toDate = now.clone().unix();
   const fromDate = now
     .clone()
     .subtract(17, "weeks")
-    .startOf("isoweek")
+    .startOf("week")
     .unix();
   const getActivity = `https://api.stackexchange.com/2.2/users/${targetUserId}/timeline?pagesize=100&fromdate=${fromDate}&todate=${toDate}&site=stackoverflow`;
 
@@ -31,7 +31,7 @@ const handleStackOverflow = async targetUserId => {
     const creationDate = moment.unix(item.creation_date);
     const begOfWeek = creationDate
       .clone()
-      .startOf("isoWeek")
+      .startOf("week")
       .unix();
     // eslint-disable-next-line no-param-reassign
     item.activityDate = begOfWeek;
