@@ -9,7 +9,8 @@ const dynamoDbUpload = async (result, userId, variant, profileUrl) => {
     title,
     post_type,
     comment_id,
-    post_id
+    post_id,
+    activityDate
   } = result;
 
   const nonPost = 100;
@@ -20,12 +21,13 @@ const dynamoDbUpload = async (result, userId, variant, profileUrl) => {
       userId,
       timelineType: timeline_type,
       variant,
-      activityDate: creation_date,
+      activityDate,
       title,
       detail,
       postType: post_type,
       commentId: comment_id,
-      postId: post_id || nonPost,
+      postId: creation_date,
+      activityId: post_id || nonPost,
       profileUrl,
       createdAt: Date.now()
     }

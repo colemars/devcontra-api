@@ -54,7 +54,7 @@ const handleStackOverflow = async targetUserId => {
       .startOf("isoWeek")
       .unix();
     // eslint-disable-next-line no-param-reassign
-    item.creation_date = begOfWeek;
+    item.activityDate = begOfWeek;
     return item;
   });
   return { response: activity };
