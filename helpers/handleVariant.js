@@ -13,6 +13,8 @@ const handleStackOverflow = async targetUserId => {
     .subtract(17, "weeks")
     .startOf("isoweek")
     .unix();
+  console.log(moment(fromDate));
+  console.log(moment(toDate));
   const getActivity = `https://api.stackexchange.com/2.2/users/${targetUserId}/timeline?pagesize=100&fromdate=${fromDate}&todate=${toDate}&site=stackoverflow`;
   // const selectors = {
   //   titleSelector: ".question-hyperlink",
@@ -40,6 +42,7 @@ const handleStackOverflow = async targetUserId => {
   ]);
 
   const activity = activityData.items;
+  console.log(activity.length);
   if (!activityData) return { error: "Invalid user id" };
   if (activity.length === 0)
     return { error: "This user has no posts to fetch" };
