@@ -1,11 +1,7 @@
 import fetch from "node-fetch";
 import moment from "moment";
-import parsePage from "./parsePage";
-import getPage from "./getPage";
 
 const handleStackOverflow = async targetUserId => {
-  // const getPosts = `https://api.stackexchange.com/2.2/users/${targetUserId}/posts?order=desc&sort=activity&site=stackoverflow`;
-  // const getUsername = `https://api.stackexchange.com/2.2/users/${targetUserId}?order=desc&sort=reputation&site=stackoverflow`;
   const now = moment();
   const toDate = now.clone().unix();
   const fromDate = now
@@ -14,19 +10,6 @@ const handleStackOverflow = async targetUserId => {
     .startOf("isoweek")
     .unix();
   const getActivity = `https://api.stackexchange.com/2.2/users/${targetUserId}/timeline?pagesize=100&fromdate=${fromDate}&todate=${toDate}&site=stackoverflow`;
-  // const selectors = {
-  //   titleSelector: ".question-hyperlink",
-  //   urlSelector: ".question-hyperlink",
-  //   postSelector: ".post-layout",
-  //   boolSelector: "question",
-  //   postAuthorSelector: ".user-details a",
-  //   bodySelector: ".post-text",
-  //   commentsSelector: ".comment-body",
-  //   commentAuthorSelector: ".comment-user",
-  //   commentContentSelector: ".comment-copy",
-  //   questionSelector: "#question",
-  //   questionIdAttribute: "data-questionid"
-  // };
 
   const jsonify = async target => {
     const result = await target.json();
@@ -34,8 +17,8 @@ const handleStackOverflow = async targetUserId => {
   };
 
   const [activityData] = await Promise.all([
-    // jsonify(await fetch(getPosts)),
-    // jsonify(await fetch(getUsername)),
+    // jsonify(await fetch(getActivity)),
+    // jsonify(await fetch(getActivity)),
     jsonify(await fetch(getActivity))
   ]);
 
@@ -55,18 +38,6 @@ const handleStackOverflow = async targetUserId => {
     return item;
   });
   return { response: activity };
-
-  // try {
-  //   const parsedPages = await Promise.all(
-  //     posts.map(async post => {
-  //       const postId = post.post_id;
-  //       return parsePage(await getPage(postId), selectors, displayName);
-  //     })
-  //   );
-  //   return { response: parsedPages };
-  // } catch (err) {
-  //   return { error: err };
-  // }
 };
 
 const handleSpectrum = targetUserId => {};
