@@ -20,7 +20,7 @@ const dynamoDbUpload = async (result, userId, variant, profileUrl) => {
       userId,
       timelineType: timeline_type,
       variant,
-      creationDate: creation_date,
+      activityDate: creation_date,
       title,
       detail,
       postType: post_type,
