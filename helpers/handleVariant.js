@@ -16,7 +16,7 @@ const jsonify = async target => {
   return result.items;
 };
 
-const handleStackOverflow = async targetUserId => {
+const handleStackOverflow = async url => {
   const now = moment().utc();
   const toDate = now.clone().unix();
   const fromDate = now
@@ -24,6 +24,7 @@ const handleStackOverflow = async targetUserId => {
     .subtract(17, "weeks")
     .startOf("week")
     .unix();
+  const targetUserId = url.split("/")[4];
   const getActivity = `https://api.stackexchange.com/2.2/users/${targetUserId}/timeline?pagesize=100&fromdate=${fromDate}&todate=${toDate}&site=stackoverflow`;
 
   const [activity] = await Promise.all([
@@ -48,14 +49,14 @@ const handleStackOverflow = async targetUserId => {
 
 const handleSpectrum = targetUserId => {};
 const handleTwitter = targetUserId => {};
-const handleGithub = async targetUserId => {
+const handleGithub = async url => {
   const now = moment().utc();
   const fromDate = now
     .clone()
     .subtract(17, "weeks")
     .startOf("week")
     .format("YYYY-MM-DD");
-
+  const targetUserId = url.split("/")[3];
   const getCommitActivity = `https://api.github.com/search/commits?q=author:${targetUserId}+committer-date:>=${fromDate}`;
   const getPRActivity = `https://api.github.com/search/issues?q=author:${targetUserId}+type:pr+created:>=${fromDate}`;
   const getIssueActivity = `https://api.github.com/search/issues?q=author:${targetUserId}+type:issue+created:>=${fromDate}`;

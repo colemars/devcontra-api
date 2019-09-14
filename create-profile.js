@@ -8,9 +8,9 @@ export default async function main(event) {
   const parts = authProvider.split(":");
   const userPoolUserId = parts[parts.length - 1];
   const data = JSON.parse(event.body);
-  const { variant, targetUserId, profileUrl } = data;
+  const { variant, profileUrl } = data;
 
-  const { response, error } = await handleVariant(variant, targetUserId);
+  const { response, error } = await handleVariant(variant, profileUrl);
   if (error) return failure(error);
 
   const upload = await Promise.all(
