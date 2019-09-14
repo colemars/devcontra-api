@@ -7,12 +7,13 @@ const handleStackOverflow = async targetUserId => {
   // const getPosts = `https://api.stackexchange.com/2.2/users/${targetUserId}/posts?order=desc&sort=activity&site=stackoverflow`;
   // const getUsername = `https://api.stackexchange.com/2.2/users/${targetUserId}?order=desc&sort=reputation&site=stackoverflow`;
   const now = moment();
+  const toDate = now.clone().unix();
   const fromDate = now
     .clone()
     .subtract(17, "weeks")
     .startOf("isoweek")
     .unix();
-  const getActivity = `https://api.stackexchange.com/2.2/users/${targetUserId}/timeline?pagesize=100&fromdate=${fromDate}&site=stackoverflow`;
+  const getActivity = `https://api.stackexchange.com/2.2/users/${targetUserId}/timeline?pagesize=100&fromdate=${fromDate}&todate=${toDate}&site=stackoverflow`;
   // const selectors = {
   //   titleSelector: ".question-hyperlink",
   //   urlSelector: ".question-hyperlink",
