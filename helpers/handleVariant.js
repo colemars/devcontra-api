@@ -2,6 +2,8 @@
 /* eslint-disable camelcase */
 import fetch from "node-fetch";
 import moment from "moment";
+import crypto from "crypto";
+import oauthSignatureGenerator from "oauth-signature";
 
 const constructReturnObject = (id, date, type) => {
   return {
@@ -13,7 +15,7 @@ const constructReturnObject = (id, date, type) => {
 
 const jsonify = async target => {
   const result = await target.json();
-  return result.items;
+  return result;
 };
 
 const handleStackOverflow = async url => {
@@ -33,9 +35,9 @@ const handleStackOverflow = async url => {
     jsonify(await fetch(getActivity))
   ]);
 
-  if (!activity) return { error: "Invalid user id" };
+  if (!activity.items) return { error: "Invalid user id" };
 
-  const returnObject = activity.map(item => {
+  const returnObject = activity.items.map(item => {
     const { creation_date, timeline_type } = item;
     const creationDate = moment.unix(creation_date);
     const begOfWeek = creationDate
@@ -48,7 +50,68 @@ const handleStackOverflow = async url => {
 };
 
 const handleSpectrum = targetUserId => {};
-const handleTwitter = targetUserId => {};
+
+const handleTwitter = async url => {
+  const method = "GET";
+  const baseUrl = "https://api.twitter.com/1.1/statuses/user_timeline.json";
+
+  const oAuthConsumerKey = "YqQe0yPHp3E2I701QLU6q3euc";
+  const oAuthToken = "4908297532-SSzdTBfxkZVKq1xqKSrXj4SEUvCG5wvRSO2V29Y";
+  const oAuthNonce = crypto.randomBytes(32).toString("base64");
+  const oAuthTimeStamp = moment()
+    .utc()
+    .unix();
+  const oAuthSignatureMethod = "HMAC-SHA1";
+  const oAuthVersion = "1.0";
+  const userId = url.split("/")[3];
+  const count = 200;
+  const includeRts = 1;
+
+  const oAuthConsumerSecret =
+    "m4YRYyxp2TBnpxbOUt1x2HOjCKgh29IkdTd1kHzMuHZIFgOwtQ";
+  const oAuthAccessTokenSecret =
+    "CYNTng2wZWxhp8fcHot3qxPMwOza8YXxJqFlwktaZgI13";
+
+  const params = {
+    oauth_consumer_key: oAuthConsumerKey,
+    oauth_token: oAuthToken,
+    oauth_nonce: oAuthNonce,
+    oauth_timestamp: oAuthTimeStamp,
+    oauth_signature_method: oAuthSignatureMethod,
+    oauth_version: oAuthVersion,
+    user_id: userId,
+    include_rts: includeRts,
+    count
+  };
+
+  const oAuthSignature = oauthSignatureGenerator.generate(
+    method,
+    baseUrl,
+    params,
+    oAuthConsumerSecret,
+    oAuthAccessTokenSecret
+  );
+
+  const escapedNonce = encodeURIComponent(oAuthNonce);
+
+  const getActivity = `https://api.twitter.com/1.1/statuses/user_timeline.json?count=200&include_rts=1&oauth_consumer_key=${oAuthConsumerKey}&oauth_nonce=${escapedNonce}&oauth_signature_method=${oAuthSignatureMethod}&oauth_timestamp=${oAuthTimeStamp}&oauth_token=${oAuthToken}&oauth_version=${oAuthVersion}&user_id=${userId}&oauth_signature=${oAuthSignature}`;
+
+  const activity = await jsonify(await fetch(getActivity));
+
+  const returnObject = activity.map(item => {
+    const { created_at, id } = item;
+    const twitterDateFormat = "dd MMM DD HH:mm:ss ZZ YYYY";
+    const creationDate = moment(created_at, twitterDateFormat, "en");
+    const begOfWeek = creationDate
+      .clone()
+      .startOf("week")
+      .unix();
+    item.activityDate = begOfWeek;
+    return constructReturnObject(id, begOfWeek, "tweet");
+  });
+  return { response: returnObject };
+};
+
 const handleGithub = async url => {
   const now = moment().utc();
   const fromDate = now
@@ -71,25 +134,28 @@ const handleGithub = async url => {
     jsonify(await fetch(getPRActivity, options))
   ]);
 
-  if (!commits || !issues || !pullRequests) return { error: "Invalid user id" };
+  if (!commits.items || !issues.items || !pullRequests.items)
+    return { error: "Invalid user id" };
 
-  commits.map(type => {
+  commits.items.map(type => {
     type.type = "commit";
     type.created_at = type.commit.committer.date;
     return type;
   });
 
-  issues.map(type => {
+  issues.items.map(type => {
     type.type = "issue";
     return type;
   });
 
-  pullRequests.map(type => {
+  pullRequests.items.map(type => {
     type.type = "pr";
     return type;
   });
 
-  const activity = [].concat(...[commits, issues, pullRequests]);
+  const activity = [].concat(
+    ...[commits.items, issues.items, pullRequests.items]
+  );
 
   const returnObject = activity.map(item => {
     const { created_at, type } = item;
