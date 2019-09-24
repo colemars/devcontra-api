@@ -88,6 +88,15 @@ functions:
           method: get
           cors: true
           authorizer: aws_iam
+  populate-tags:
+    handler: populate-tags.default
+    memorySize: 1600
+    events:
+      - http:
+          path: admin/populate-tags
+          method: post
+          cors: true
+          authorizer: aws_iam
 
 # Create our resources with separate CloudFormation templates
 resources:
