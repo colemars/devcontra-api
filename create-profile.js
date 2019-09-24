@@ -1,6 +1,6 @@
 import { success, failure } from "./libs/response-lib";
 import handleVariant from "./helpers/handleVariant";
-import dynamoDbUpload from "./helpers/dynamoDbUpload";
+import dynamoDbProfileUpload from "./helpers/dynamoDbProfileUpload";
 
 export default async function main(event) {
   const authProvider =
@@ -15,7 +15,7 @@ export default async function main(event) {
 
   const upload = await Promise.all(
     response.map(result =>
-      dynamoDbUpload(result, userPoolUserId, variant, profileUrl)
+      dynamoDbProfileUpload(result, userPoolUserId, variant, profileUrl)
     )
   );
   if (!upload.every(item => item === true))

@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import * as dynamoDbLib from "../libs/dynamodb-lib";
 
-const dynamoDbUpload = async (result, userId, variant, profileUrl) => {
+const dynamoDbProfileUpload = async (result, userId, variant, profileUrl) => {
   const { id, date, type } = result;
 
   const params = {
@@ -26,4 +26,4 @@ const dynamoDbUpload = async (result, userId, variant, profileUrl) => {
   }
 };
 
-export default dynamoDbUpload;
+export default dynamoDbProfileUpload;
