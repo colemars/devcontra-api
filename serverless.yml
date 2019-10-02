@@ -88,6 +88,15 @@ functions:
           method: get
           cors: true
           authorizer: aws_iam
+  update-profile-key:
+    handler: update-profile-key.default
+    memorySize: 1600
+    events:
+      - http:
+          path: profile/key
+          method: put
+          cors: true
+          authorizer: aws_iam
   get-data-with-key:
     handler: get-data-with-key.default
     memorySize: 1600
