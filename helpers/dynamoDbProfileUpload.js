@@ -13,6 +13,7 @@ const dynamoDbProfileUpload = async (result, userId, variant, profileUrl) => {
       activityDate: date,
       type,
       profileUrl,
+      accessKey: null,
       createdAt: Date.now()
     }
   };
