@@ -12,10 +12,8 @@ export default async function main(event) {
 
   const params = {
     TableName: process.env.tableName,
-    IndexName: "userId-variant-index",
     Key: {
-      userId: userPoolUserId,
-      activityId: 123
+      userId: userPoolUserId
     },
     UpdateExpression: "SET accessKey = :accessKey",
     ExpressionAttributeValues: {
