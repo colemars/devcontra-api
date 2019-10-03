@@ -32,7 +32,8 @@ provider:
   # These environment variables are made available to our functions
   # under process.env.
   environment:
-    tableName: ${self:custom.profilesTableName}
+    profilesTableName: ${self:custom.profilesTableName}
+    usersTableName: ${self:custom.usersTableName}
 
   iamRoleStatements:
     - Effect: Allow
