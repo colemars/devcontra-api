@@ -3,7 +3,7 @@ import * as dynamoDbLib from "../libs/dynamodb-lib";
 
 const dynamoDbUserUpload = async userId => {
   const params = {
-    TableName: process.env.profilesTableName,
+    TableName: process.env.usersTableName,
     Item: {
       userId,
       accessKey: v4(),
