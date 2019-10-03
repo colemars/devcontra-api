@@ -10,9 +10,10 @@ export default async function main(event) {
 
   const params = {
     TableName: process.env.tableName,
-    IndexName: "userId-index",
+    IndexName: "userId-variant-index",
     Key: {
-      userId: userPoolUserId
+      userId: userPoolUserId,
+      variant: "stackoverlow"
     },
     UpdateExpression: "SET accessKey = :accessKey",
     ExpressionAttributeValues: {
@@ -20,7 +21,7 @@ export default async function main(event) {
     },
     ReturnValues: "UPDATED_NEW"
   };
-
+  console.log(userPoolUserId);
   console.log(params);
 
   try {
