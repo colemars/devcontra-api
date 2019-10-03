@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { v4 } from "uuid";
 import * as dynamoDbLib from "../libs/dynamodb-lib";
 
 const dynamoDbProfileUpload = async (result, userId, variant, profileUrl) => {
@@ -13,7 +14,7 @@ const dynamoDbProfileUpload = async (result, userId, variant, profileUrl) => {
       activityDate: date,
       type,
       profileUrl,
-      accessKey: null,
+      accessKey: v4(),
       createdAt: Date.now()
     }
   };
