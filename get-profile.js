@@ -9,7 +9,7 @@ export default async function main(event) {
   const { variant } = event.pathParameters;
 
   const params = {
-    TableName: process.env.tableName,
+    TableName: process.env.profilesTableName,
     IndexName: "userId-variant-index",
     KeyConditionExpression: "userId = :id and variant = :variant",
     ExpressionAttributeValues: {
