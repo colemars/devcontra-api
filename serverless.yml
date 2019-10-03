@@ -61,7 +61,7 @@ provider:
       # Restrict our IAM role permissions to
       # the specific tables for the stage
       Resource:
-        - "Fn::GetAtt": [ usersTable, Arn ]
+        - "Fn::GetAtt": [ UsersTable, Arn ]
     - Effect: Allow
       Action:
         - dynamodb:Query
