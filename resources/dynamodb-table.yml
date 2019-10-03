@@ -22,9 +22,6 @@ Resources:
             NonKeyAttributes:
             - accessKey
             ProjectionType: INCLUDE
-          ProvisionedThroughput:
-            ReadCapacityUnits: 1
-            WriteCapacityUnits: 1
         - IndexName: userId-variant-index
           KeySchema:
           - AttributeName: userId
@@ -33,6 +30,3 @@ Resources:
             KeyType: RANGE
           Projection:
             ProjectionType: ALL
-          ProvisionedThroughput:
-            ReadCapacityUnits: 1
-            WriteCapacityUnits: 1
