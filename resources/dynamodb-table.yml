@@ -6,8 +6,6 @@ Resources:
       AttributeDefinitions:
         - AttributeName: userId
           AttributeType: S
-        - AttributeName: accessKey
-          AttributeType: S
         - AttributeName: variant
           AttributeType: S
       KeySchema:
