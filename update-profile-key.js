@@ -11,8 +11,7 @@ export default async function main(event) {
   const newKey = v4();
 
   const params = {
-    TableName: process.env.tableName,
-    IndexName: "userId-index",
+    TableName: process.env.usersTableName,
     Key: {
       userId: userPoolUserId
     },
