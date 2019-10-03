@@ -8,12 +8,14 @@ export default async function main(event) {
   const parts = authProvider.split(":");
   const userPoolUserId = parts[parts.length - 1];
 
+  const newKey = v4();
+
   const params = {
     TableName: process.env.tableName,
     IndexName: "userId-variant-index",
     Key: {
       userId: userPoolUserId,
-      variant: "stackoverlow"
+      activityId: 123
     },
     UpdateExpression: "SET accessKey = :accessKey",
     ExpressionAttributeValues: {
@@ -21,6 +23,7 @@ export default async function main(event) {
     },
     ReturnValues: "UPDATED_NEW"
   };
+  console.log(newKey);
   console.log(userPoolUserId);
   console.log(params);
 
