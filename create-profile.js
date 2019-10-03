@@ -1,8 +1,7 @@
-import { v4 } from "uuid";
 import { success, failure } from "./libs/response-lib";
 import handleVariant from "./helpers/handleVariant";
 import dynamoDbProfileUpload from "./helpers/dynamoDbProfileUpload";
-import * as dynamoDbLib from "./libs/dynamodb-lib";
+import dynamoDbUserUpload from "./helpers/dynamoDbUserUpload";
 
 export default async function main(event) {
   const authProvider =
@@ -15,25 +14,18 @@ export default async function main(event) {
   const { response, error } = await handleVariant(variant, profileUrl);
   if (error) return failure(error);
 
-  const profileUpload = await Promise.all(
+  const profile = await Promise.all(
     response.map(result =>
       dynamoDbProfileUpload(result, userPoolUserId, variant, profileUrl)
     )
   );
 
-  const params = {
-    TableName: process.env.usersTableName,
-    Item: {
-      userPoolUserId,
-      accessKey: v4(),
-      createdAt: Date.now()
-    }
-  };
+  const user = await dynamoDbUserUpload(userPoolUserId);
 
-  await dynamoDbLib.call("put", params);
+  console.log(user);
 
-  if (!profileUpload.every(item => item === true))
+  if (!user && !profile.every(item => item === true))
     // TO DO build error parser;
-    return failure(profileUpload.map(item => item.error));
+    return failure(profile.map(item => item.error));
   return success(`${variant} profile created`);
 }
