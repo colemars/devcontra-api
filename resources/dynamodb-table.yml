@@ -2,7 +2,7 @@ Resources:
   ProfilesTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: ${self:custom.tableName}
+      TableName: ${self:custom.profilesTableName}
       AttributeDefinitions:
         - AttributeName: userId
           AttributeType: S
@@ -34,3 +34,15 @@ Resources:
             KeyType: RANGE
           Projection:
             ProjectionType: ALL
+  UsersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:custom.usersTableName}
+      AttributeDefinitions:
+        - AttributeName: userId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: userId
+          KeyType: HASH
+      # Set the capacity to auto-scale
+      BillingMode: PAY_PER_REQUEST

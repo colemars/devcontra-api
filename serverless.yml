@@ -20,7 +20,8 @@ custom:
   # commands. Or fallsback to what we have set in the provider section.
   stage: ${opt:stage, self:provider.stage}
   # Set the table name here so we can use it while testing locally
-  tableName: ${self:custom.stage}-devcontra
+  profilesTableName: ${self:custom.stage}-devcontra-profiles
+  usersTableName: ${self:custom.stage}-devcontra-users
 
 provider:
   name: aws
@@ -31,7 +32,7 @@ provider:
   # These environment variables are made available to our functions
   # under process.env.
   environment:
-    tableName: ${self:custom.tableName}
+    tableName: ${self:custom.profilesTableName}
 
   iamRoleStatements:
     - Effect: Allow
@@ -51,7 +52,7 @@ provider:
       Action:
         - dynamodb:Query
       Resource: 
-        # this is building the following format: arn:aws:dynamodb:us-west-2:AWS::AccountId:table/dev-stampsafe-reports/index/*
+        # this is building the following format: arn:aws:dynamodb:us-west-2:AWS::AccountId:table/dev-devcontra-profiles/index/*
          Fn::Join:
           - ''
           -
@@ -60,7 +61,7 @@ provider:
             - ':'
             - Ref: AWS::AccountId
             - ':table/'
-            - ${self:custom.tableName}/
+            - ${self:custom.profilesTableName}/
             - 'index/*'
 
 functions:
