@@ -19,7 +19,7 @@ export default async function main(event) {
     },
     UpdateExpression: "SET accessKey = :accessKey",
     ExpressionAttributeValues: {
-      ":accessKey": v4()
+      ":accessKey": newKey
     },
     ReturnValues: "UPDATED_NEW"
   };
