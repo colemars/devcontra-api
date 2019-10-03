@@ -6,11 +6,15 @@ Resources:
       AttributeDefinitions:
         - AttributeName: userId
           AttributeType: S
+        - AttributeName: activityId
+          AttributeType: N
         - AttributeName: variant
           AttributeType: S
       KeySchema:
         - AttributeName: userId
           KeyType: HASH
+        - AttributeName: activityId
+          KeyType: RANGE
       # Set the capacity to auto-scale
       BillingMode: PAY_PER_REQUEST
       GlobalSecondaryIndexes:

@@ -12,6 +12,7 @@ export default async function main(event) {
 
   const params = {
     TableName: process.env.tableName,
+    IndexName: "userId-index",
     Key: {
       userId: userPoolUserId
     },
