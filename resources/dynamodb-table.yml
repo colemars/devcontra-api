@@ -8,12 +8,25 @@ Resources:
           AttributeType: S
         - AttributeName: variant
           AttributeType: S
+        - AttributeName: accessKey
+          AttributeType: S
       KeySchema:
         - AttributeName: userId
           KeyType: HASH
       # Set the capacity to auto-scale
       BillingMode: PAY_PER_REQUEST
-      LocalSecondaryIndexes:
+      GlobalSecondaryIndexes:
+        - IndexName: userId-index
+          KeySchema:
+            - AttributeName: userId
+              KeyType: HASH
+          Projection:
+            NonKeyAttributes:
+            - accessKey
+            ProjectionType: INCLUDE
+          ProvisionedThroughput:
+            ReadCapacityUnits: 1
+            WriteCapacityUnits: 1
         - IndexName: userId-variant-index
           KeySchema:
           - AttributeName: userId
@@ -22,3 +35,6 @@ Resources:
             KeyType: RANGE
           Projection:
             ProjectionType: ALL
+          ProvisionedThroughput:
+            ReadCapacityUnits: 1
+            WriteCapacityUnits: 1
