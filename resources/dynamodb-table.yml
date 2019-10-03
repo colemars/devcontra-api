@@ -6,8 +6,6 @@ Resources:
       AttributeDefinitions:
         - AttributeName: userId
           AttributeType: S
-        - AttributeName: activityId
-          AttributeType: N
         - AttributeName: variant
           AttributeType: S
       KeySchema:
