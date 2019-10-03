@@ -6,6 +6,10 @@ Resources:
       AttributeDefinitions:
         - AttributeName: userId
           AttributeType: S
+        - AttributeName: accessKey
+          AttributeType: S
+        - AttributeName: variant
+          AttributeType: S
       KeySchema:
         - AttributeName: userId
           KeyType: HASH
@@ -16,8 +20,6 @@ Resources:
           KeySchema:
             - AttributeName: userId
               KeyType: HASH
-            - AttributeName: accessKey
-              AttributeType: S
           Projection:
             NonKeyAttributes:
             - accessKey
