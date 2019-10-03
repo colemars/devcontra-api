@@ -41,8 +41,17 @@ Resources:
       AttributeDefinitions:
         - AttributeName: userId
           AttributeType: S
+        - AttributeName: accessKey
+          AttributeType: S
       KeySchema:
         - AttributeName: userId
           KeyType: HASH
       # Set the capacity to auto-scale
       BillingMode: PAY_PER_REQUEST
+      GlobalSecondaryIndexes:
+        - IndexName: accessKey-index
+          KeySchema:
+            - AttributeName: accessKey
+              KeyType: HASH
+          Projection:
+            ProjectionType: KEYS_ONLY
