@@ -113,7 +113,7 @@ functions:
           cors: true
           authorizer: aws_iam
   get-data:
-    handler: get-data-with-key.default
+    handler: get-data.default
     memorySize: 1600
     events:
       - http:
