@@ -16,7 +16,7 @@
 [![peerDependencies Status](https://david-dm.org/colemars/devcontra/peer-status.svg)](https://david-dm.org/colemars/devcontra?type=peer)
 [![dependencies Status](https://david-dm.org/colemars/devcontra/status.svg)](https://david-dm.org/colemars/devcontra)
 [![devDependencies Status](https://david-dm.org/colemars/devcontra/dev-status.svg)](https://david-dm.org/colemars/devcontra?type=dev)
-[![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/colemars/devcontra.svg)](https://isitmaintained.com/project/colemars/devcontra "Average time to resolve an issue")
+[![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/colemars/devcontra-component.svg)](https://isitmaintained.com/project/colemars/devcontra-component "Average time to resolve an issue")
 </div>
 
 ## Installation
