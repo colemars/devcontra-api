@@ -44,7 +44,7 @@
     "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
-    "@babel/runtime": "^7.5.5",
+    "@babel/runtime": "^7.6.2",
     "aws-amplify": "^1.1.30",
     "aws-api-gateway-client": "^0.2.17",
     "aws-sdk": "^2.493.0",
