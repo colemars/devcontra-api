@@ -13,8 +13,7 @@ export default async function main(event) {
     ExpressionAttributeValues: {
       ":accessKey": accessKey
     },
-    AttributesToGet: "userId",
-    Select: "SPECIFIC_ATTRIBUTES"
+    Select: "ALL_PROJECTED_ATTRIBUTES"
   };
 
   try {
