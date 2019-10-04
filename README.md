@@ -12,7 +12,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/devcontra.svg)](https://www.npmjs.com/package/devcontra)
 ![Code style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)
 [![Follow on Twitter](https://img.shields.io/twitter/follow/itsacolemars.svg?label=follow)](https://twitter.com/itsacolemars)
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=colemars/devcontra)](https://dependabot.com)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=colemars/devcontra-component)](https://dependabot.com)
 [![peerDependencies Status](https://david-dm.org/colemars/devcontra/peer-status.svg)](https://david-dm.org/colemars/devcontra?type=peer)
 [![dependencies Status](https://david-dm.org/colemars/devcontra/status.svg)](https://david-dm.org/colemars/devcontra)
 [![devDependencies Status](https://david-dm.org/colemars/devcontra/dev-status.svg)](https://david-dm.org/colemars/devcontra?type=dev)
