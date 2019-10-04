@@ -3,9 +3,7 @@ import * as dynamoDbLib from "./libs/dynamodb-lib";
 import { success, failure } from "./libs/response-lib";
 
 export default async function main(event) {
-  const data = JSON.parse(event.body);
-  const { variant } = event.pathParameters;
-  const { accessKey } = data;
+  const { variant, accessKey } = event.pathParameters;
   let userId;
 
   const userParams = {
