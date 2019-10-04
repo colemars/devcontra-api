@@ -21,7 +21,7 @@ export default async function main(event) {
     const userResult = await dynamoDbLib.call("query", userParams);
     if (!userResult.Items.length > 0) {
       return failure({
-        error: "User not found. Double check your profile key.",
+        error: "User not found. Your profile key may have changed.",
         status: false
       });
     }
