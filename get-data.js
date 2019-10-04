@@ -21,6 +21,12 @@ export default async function main(event) {
     const userResult = await dynamoDbLib.call("query", userParams);
     console.log(userResult);
     userId = userResult.Items[0].userId;
+    if (!userId.length > 0) {
+      return failure({
+        error: "User not found. Double check your profile key.",
+        status: false
+      });
+    }
   } catch (e) {
     console.log("error:", e);
     return failure({ error: e, status: false });
