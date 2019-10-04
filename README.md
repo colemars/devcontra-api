@@ -13,9 +13,9 @@
 ![Code style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)
 [![Follow on Twitter](https://img.shields.io/twitter/follow/itsacolemars.svg?label=follow)](https://twitter.com/itsacolemars)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=colemars/devcontra-component)](https://dependabot.com)
-[![peerDependencies Status](https://david-dm.org/colemars/devcontra/peer-status.svg)](https://david-dm.org/colemars/devcontra?type=peer)
-[![dependencies Status](https://david-dm.org/colemars/devcontra/status.svg)](https://david-dm.org/colemars/devcontra)
-[![devDependencies Status](https://david-dm.org/colemars/devcontra/dev-status.svg)](https://david-dm.org/colemars/devcontra?type=dev)
+[![peerDependencies Status](https://david-dm.org/colemars/devcontra-component/peer-status.svg)](https://david-dm.org/colemars/devcontra-component?type=peer)
+[![dependencies Status](https://david-dm.org/colemars/devcontra-component/status.svg)](https://david-dm.org/colemars/devcontra-component)
+[![devDependencies Status](https://david-dm.org/colemars/devcontra-component/dev-status.svg)](https://david-dm.org/colemars/devcontra-component?type=dev)
 [![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/colemars/devcontra-component.svg)](https://isitmaintained.com/project/colemars/devcontra-component "Average time to resolve an issue")
 </div>
 
