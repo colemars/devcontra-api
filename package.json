@@ -41,7 +41,7 @@
     "serverless-offline": "^5.12.0",
     "serverless-plugin-include-dependencies": "^3.2.1",
     "serverless-webpack": "^5.1.0",
-    "webpack": "^4.16.2",
+    "webpack": "^4.41.0",
     "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
