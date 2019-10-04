@@ -77,6 +77,21 @@ provider:
             - ':table/'
             - ${self:custom.profilesTableName}/
             - 'index/*'
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource: 
+        # this is building the following format: arn:aws:dynamodb:us-west-2:AWS::AccountId:table/dev-devcontra-profiles/index/*
+         Fn::Join:
+          - ''
+          -
+            - 'arn:aws:dynamodb:'
+            - Ref: AWS::Region
+            - ':'
+            - Ref: AWS::AccountId
+            - ':table/'
+            - ${self:custom.usersTableName}/
+            - 'index/*'
 
 functions:
   # Defines an HTTP API endpoint that calls the main function in create-profile.js
