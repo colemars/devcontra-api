@@ -117,7 +117,7 @@ functions:
     memorySize: 1600
     events:
       - http:
-          path: data/variant
+          path: profile/{variant}/{accessKey}
           method: get
           cors: true
           authorizer: aws_iam
