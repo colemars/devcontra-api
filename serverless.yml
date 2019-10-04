@@ -109,6 +109,15 @@ functions:
           method: post
           cors: true
           authorizer: aws_iam
+  create-user:
+    handler: create-user.default
+    memorySize: 1600
+    events:
+      - http:
+          path: user
+          method: post
+          cors: true
+          authorizer: aws_iam
   get-profile:
     handler: get-profile.default
     memorySize: 1600
