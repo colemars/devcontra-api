@@ -8,28 +8,28 @@
 
 [React](https://reactjs.org/) component that implements [d3](https://github.com/d3/d3) for data visualization and is configured via the [DevContra Client](https://prod-devcontra.now.sh).
 
-[![npm package](https://img.shields.io/npm/v/devcontra-component/latest.svg)](https://www.npmjs.com/package/devcontra-component)
-[![npm downloads](https://img.shields.io/npm/dm/devcontra-component.svg)](https://www.npmjs.com/package/devcontra-component)
+[![npm package](https://img.shields.io/npm/v/devcontra/latest.svg)](https://www.npmjs.com/package/devcontra)
+[![npm downloads](https://img.shields.io/npm/dm/devcontra.svg)](https://www.npmjs.com/package/devcontra)
 ![Code style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)
 [![Follow on Twitter](https://img.shields.io/twitter/follow/itsacolemars.svg?label=follow)](https://twitter.com/itsacolemars)
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=colemars/devcontra-component)](https://dependabot.com)
-[![peerDependencies Status](https://david-dm.org/colemars/devcontra-component/peer-status.svg)](https://david-dm.org/colemars/devcontra-component?type=peer)
-[![dependencies Status](https://david-dm.org/colemars/devcontra-component/status.svg)](https://david-dm.org/colemars/devcontra-component)
-[![devDependencies Status](https://david-dm.org/colemars/devcontra-component/dev-status.svg)](https://david-dm.org/colemars/devcontra-component?type=dev)
-[![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/colemars/devcontra-component.svg)](https://isitmaintained.com/project/colemars/devcontra-component "Average time to resolve an issue")
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=colemars/devcontra)](https://dependabot.com)
+[![peerDependencies Status](https://david-dm.org/colemars/devcontra/peer-status.svg)](https://david-dm.org/colemars/devcontra?type=peer)
+[![dependencies Status](https://david-dm.org/colemars/devcontra/status.svg)](https://david-dm.org/colemars/devcontra)
+[![devDependencies Status](https://david-dm.org/colemars/devcontra/dev-status.svg)](https://david-dm.org/colemars/devcontra?type=dev)
+[![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/colemars/devcontra.svg)](https://isitmaintained.com/project/colemars/devcontra "Average time to resolve an issue")
 </div>
 
 ## Installation
 
-DevContra is available as an [npm package](https://www.npmjs.com/package/devcontra-component).
+DevContra is available as an [npm package](https://www.npmjs.com/package/devcontra).
 
 **[Stable channel v0](https://prod-devcontra.now.sh)**
 ```sh
 // with npm
-npm i devcontra-component
+npm i devcontra
 
 // with yarn
-yarn add devcontra-component
+yarn add devcontra
 ```
 
 Please note that `@next` will only point to pre-releases; to get the latest stable release use `@latest` instead.
@@ -40,7 +40,7 @@ Here is a quick example to get you started, **it's all you need**:
 
 ```jsx
 import React from 'react';
-import DevContra from 'devcontra-component';
+import DevContra from 'devcontra';
 
 function App() {
   return (
