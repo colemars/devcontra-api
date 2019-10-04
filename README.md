@@ -19,6 +19,22 @@
 [![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/colemars/devcontra-component.svg)](https://isitmaintained.com/project/colemars/devcontra-component "Average time to resolve an issue")
 </div>
 
+## What is it?
+
+A data viz tool that aggregates all of your dev contribution activity into one component that can be easily integrated into your personal website.
+
+Data is currently fetched from Twitter, Github, and StackOverflow, with support for Spectrum coming soon.
+
+Each band in the timeline represents a week of dev activity, with 17 total bands, and the current, or most recent, week/band being the outermost. The type of activity is color coded according to the respective platform's brand.
+
+## "Dev Activity"?
+
+Your Github activity is determined by the commits, issues, and pull requests authored by you.
+
+Your StackOverflow activity is determined by your posts, answers, and comments - as well as any badges you recieve.
+
+Your Twitter activity is determined by parsing your tweets for relevant hashtags that match any existing StackOverflow tag. Support for adding tags to match against is coming soon.
+
 ## Installation
 
 DevContra is available as an [npm package](https://www.npmjs.com/package/devcontra).
@@ -44,7 +60,7 @@ import DevContra from 'devcontra';
 
 function App() {
   return (
-    //uses the test key
+    // test key
     <DevContra profileKey="e380df4d-c9b0-4ac0-be51-6cf8a49d0760" />
   );
 }
@@ -54,7 +70,41 @@ ReactDOM.render(<App />, document.querySelector('#app'));
 
 See it here in this live demo:
 
-[![Edit Button](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/4j7m47vlm4)
+[![Edit Button](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/beautiful-shamir-m2h0z)
+
+## Configuration
+
+You can begin configuring your profile [here](devcontra.colemars.dev). After you create your account you will be able to set your twitter, stackoverflow, and github profiles, and receive your unique `profileKey`.
+
+## Customization
+
+Several optional `props` are available to customize your component. 
+
+`determinedMax` sets your domain, or the value you want your results to be relative to. If not set, it defaults to the nearest rounded up tenths place from your most active week. If your most active week has 72 contributions, your timeline will be set relative to a value of 80.
+
+`diameter` is responsible for the size of your component. The default value is 350.
+
+`padding` can be used to increase padding around the svg. Default padding is 0.
+
+
+```jsx
+import React from 'react';
+import DevContra from 'devcontra';
+
+function App() {
+  return (
+    // test key
+    <DevContra
+      profileKey="e380df4d-c9b0-4ac0-be51-6cf8a49d0760"
+      deteminedMax={80}
+      diameter={350}
+      padding={0}
+    />
+  );
+}
+
+ReactDOM.render(<App />, document.querySelector('#app'));
+```
 
 ## Questions
 
@@ -79,7 +129,6 @@ Please read the [changelog](https://github.com/colemars/devcontra-component/rele
 The future plans and high priority features and enhancements can be found [here](/ROADMAP.md).
 
 ## Utilizes
-
 
 [<img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png" width="100">](https://github.com/)
 
@@ -116,6 +165,12 @@ ZEIT Now offers a great solution for site hosting.
 [<img src="https://seeklogo.com/images/N/next-js-logo-7929BCD36F-seeklogo.com.png" width="150">](https://nextjs.org/)
 
 NEXT.js is a React Framework that offers a great server side rendering solution.
+
+## Other Repos
+
+[DevContra Component](https://github.com/colemars/devcontra-component)
+
+[DevContra Client](https://github.com/colemars/devcontra-client)
 
 
 ## License
