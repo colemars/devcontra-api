@@ -112,12 +112,12 @@ functions:
           method: put
           cors: true
           authorizer: aws_iam
-  get-data-with-key:
+  get-data:
     handler: get-data-with-key.default
     memorySize: 1600
     events:
       - http:
-          path: data/{variant}
+          path: profile/{accessKey}/{variant}
           method: get
           cors: true
           authorizer: aws_iam
