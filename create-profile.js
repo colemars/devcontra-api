@@ -1,7 +1,6 @@
 import { success, failure } from "./libs/response-lib";
 import handleVariant from "./helpers/handleVariant";
 import dynamoDbProfileUpload from "./helpers/dynamoDbProfileUpload";
-import dynamoDbUserUpload from "./helpers/dynamoDbUserUpload";
 
 export default async function main(event) {
   const authProvider =
@@ -20,11 +19,7 @@ export default async function main(event) {
     )
   );
 
-  const user = await dynamoDbUserUpload(userPoolUserId);
-
-  console.log(user);
-
-  if (!user && !profile.every(item => item === true))
+  if (!profile.every(item => item === true))
     // TO DO build error parser;
     return failure(profile.map(item => item.error));
   return success(`${variant} profile created`);
