@@ -1,6 +1,7 @@
 {
   "name": "devcontra-api",
   "version": "1.1.7",
+  "license" : "MIT",
   "description": "Contribution aggregate and display tool",
   "main": "handler.js",
   "scripts": {
