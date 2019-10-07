@@ -37,7 +37,7 @@
     "eslint-plugin-prettier": "^3.1.0",
     "jest": "^25.0.0",
     "prettier": "^1.18.2",
-    "puppeteer": "^1.19.0",
+    "puppeteer": "^1.20.0",
     "serverless-offline": "^5.12.0",
     "serverless-plugin-include-dependencies": "^3.2.1",
     "serverless-webpack": "^5.1.0",
