@@ -15,7 +15,7 @@ export default async function main(event) {
   };
 
   try {
-    const result = await dynamoDbLib.call("getItem", params);
+    const result = await dynamoDbLib.call("get", params);
     console.log(result);
     return success(result);
   } catch (e) {
