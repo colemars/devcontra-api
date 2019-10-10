@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.6.2",
-    "aws-amplify": "^1.1.30",
+    "aws-amplify": "^1.2.2",
     "aws-api-gateway-client": "^0.2.17",
     "aws-sdk": "^2.493.0",
     "babel-runtime": "^6.26.0",
