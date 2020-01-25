@@ -6,7 +6,7 @@
           "request": "launch",
           "name": "Debug",
           "autoAttachChildProcesses": true,
-          "program": "${workspaceFolder}/create-profile.js",
+          "program": "${workspaceFolder}/helpers/handleStackTags.js",
           "console": "internalConsole",
           "runtimeArgs": ["--nolazy", "--require", "@babel/register"],
           "env": {
