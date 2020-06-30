@@ -18,7 +18,7 @@
     "url": "colemars.dev"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
+    "@babel/cli": "^7.10.4",
     "@babel/core": "^7.6.4",
     "@babel/node": "^7.6.2",
     "@babel/plugin-transform-runtime": "^7.5.5",
